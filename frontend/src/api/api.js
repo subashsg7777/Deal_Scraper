@@ -1,4 +1,14 @@
-const BASE_URL = 'http://localhost:8080/api';
+const rawBaseUrl = (import.meta.env.VITE_API_BASE_URL || '').trim();
+
+// In production default to Render backend; allow override via VITE_API_BASE_URL.
+const defaultOrigin = import.meta.env.PROD
+  ? 'https://deal-scraper-1q5s.onrender.com'
+  : 'http://localhost:8080';
+
+const normalizedOrigin = (rawBaseUrl || defaultOrigin).replace(/\/$/, '');
+const BASE_URL = normalizedOrigin.endsWith('/api')
+  ? normalizedOrigin
+  : `${normalizedOrigin}/api`;
 
 async function request(path) {
   const res = await fetch(`${BASE_URL}${path}`);
