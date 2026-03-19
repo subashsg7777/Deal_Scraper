@@ -1,0 +1,15 @@
+# Frontend dependencies and build output
+frontend/node_modules/
+frontend/dist/
+
+# Python caches
+scraper/__pycache__/
+scraper/scrapers/__pycache__/
+
+# Java build output
+backend/Deal_Scrapper/target/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
