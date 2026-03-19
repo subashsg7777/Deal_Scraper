@@ -19,9 +19,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -177,11 +175,20 @@ public class GameService {
 
         List<LatestPrice> results = latestPrices.getMappedResults();
 
-        double lowest = Double.MAX_VALUE;
+        Double lowest = null;
         String cheapestStore = null;
+        Instant latestScrapedAt = null;
 
         for (LatestPrice p : results) {
-            if (p.getPrice() < lowest) {
+            if (p.getScrapedAt() != null && (latestScrapedAt == null || p.getScrapedAt().isAfter(latestScrapedAt))) {
+                latestScrapedAt = p.getScrapedAt();
+            }
+
+            if (p.getPrice() == null) {
+                continue;
+            }
+
+            if (lowest == null || p.getPrice() < lowest) {
                 lowest = p.getPrice();
                 cheapestStore = p.getStore();
             }
@@ -193,7 +200,7 @@ public class GameService {
         latestPricePerStoreResDto.setCheapestStore(cheapestStore);
         latestPricePerStoreResDto.setCheapestPrice(lowest);
         latestPricePerStoreResDto.setCurrency("INR");
-        latestPricePerStoreResDto.setLastUpdatedAt(results.isEmpty() ? null : results.getFirst().getScrapedAt());
+        latestPricePerStoreResDto.setLastUpdatedAt(latestScrapedAt);
 
         return latestPricePerStoreResDto;
     }
