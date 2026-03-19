@@ -1,6 +1,7 @@
 import requests
+from config import build_api_url
 
-API_URL = "http://localhost:8080/api/games/prices"
+API_URL = build_api_url("/api/games/prices")
 
 def send_prices(game_id, price, store, currency="INR"):
     payload = {
