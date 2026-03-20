@@ -4,6 +4,7 @@ import { TrendingDown, Zap, ArrowRight, RefreshCw, Activity } from 'lucide-react
 import { getDeals } from '../api/api'
 import DealCard from '../components/DealCard'
 import LoadingSpinner from '../components/LoadingSpinner'
+import AdBanner from '../components/AdBanner'
 
 const STATS = [
   { label: 'Platforms Tracked', value: '3' },
@@ -147,11 +148,20 @@ export default function Home() {
             <p className="text-[#6b7280] text-sm">Check back later for fresh discounts</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 animate-fade-in">
-            {deals.map((deal, idx) => (
-              <DealCard key={deal.gameId ?? idx} deal={deal} />
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 animate-fade-in">
+              {deals.map((deal, idx) => (
+                <React.Fragment key={deal.gameId ?? idx}>
+                  <DealCard deal={deal} />
+                  {(idx + 1) % 8 === 0 && (
+                    <AdBanner className="sm:col-span-2 lg:col-span-3 xl:col-span-4" />
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
+
+            <AdBanner className="mt-10" />
+          </>
         )}
       </section>
     </div>

@@ -4,6 +4,7 @@ import { Search as SearchIcon, Gamepad2, ChevronRight, Sparkles } from 'lucide-r
 import { searchGames } from '../api/api'
 import SearchBar from '../components/SearchBar'
 import LoadingSpinner from '../components/LoadingSpinner'
+import AdBanner from '../components/AdBanner'
 
 const MIN_SEARCH_LENGTH = 4
 
@@ -123,33 +124,36 @@ export default function Search() {
             {results.length} result{results.length !== 1 ? 's' : ''}
           </p>
           <div className="flex flex-col gap-2">
-            {results.map((game) => (
-              <Link
-                key={gameId(game)}
-                to={`/game/${gameId(game)}`}
-                state={{ gameName: gameName(game) }}
-                className="flex items-center justify-between bg-[#111827] border border-white/5 rounded-xl px-5 py-4
-                  hover:border-[#6366f1]/30 hover:bg-[#6366f1]/5
-                  transition-all duration-200 group"
-              >
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-10 h-10 bg-[#6366f1]/10 border border-[#6366f1]/20 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-[#6366f1]/15 transition-colors">
-                    <Gamepad2 size={17} className="text-[#6366f1]" />
+            {results.map((game, index) => (
+              <React.Fragment key={gameId(game)}>
+                <Link
+                  to={`/game/${gameId(game)}`}
+                  state={{ gameName: gameName(game) }}
+                  className="flex items-center justify-between bg-[#111827] border border-white/5 rounded-xl px-5 py-4
+                    hover:border-[#6366f1]/30 hover:bg-[#6366f1]/5
+                    transition-all duration-200 group"
+                >
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-10 h-10 bg-[#6366f1]/10 border border-[#6366f1]/20 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-[#6366f1]/15 transition-colors">
+                      <Gamepad2 size={17} className="text-[#6366f1]" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[#e5e7eb] font-semibold text-sm truncate group-hover:text-white transition-colors">
+                        {gameName(game)}
+                      </p>
+                      {game.genre && (
+                        <p className="text-[#6b7280] text-xs mt-0.5 truncate">{game.genre}</p>
+                      )}
+                    </div>
                   </div>
-                  <div className="min-w-0">
-                    <p className="text-[#e5e7eb] font-semibold text-sm truncate group-hover:text-white transition-colors">
-                      {gameName(game)}
-                    </p>
-                    {game.genre && (
-                      <p className="text-[#6b7280] text-xs mt-0.5 truncate">{game.genre}</p>
-                    )}
-                  </div>
-                </div>
-                <ChevronRight
-                  size={16}
-                  className="text-[#6b7280] group-hover:text-[#6366f1] group-hover:translate-x-0.5 transition-all duration-200 flex-shrink-0 ml-3"
-                />
-              </Link>
+                  <ChevronRight
+                    size={16}
+                    className="text-[#6b7280] group-hover:text-[#6366f1] group-hover:translate-x-0.5 transition-all duration-200 flex-shrink-0 ml-3"
+                  />
+                </Link>
+
+                {(index + 1) % 5 === 0 && <AdBanner className="mt-2" />}
+              </React.Fragment>
             ))}
           </div>
         </div>

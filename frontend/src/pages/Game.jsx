@@ -12,6 +12,7 @@ import { getGamePrices, getGameHistory } from '../api/api'
 import StorePriceCard from '../components/StorePriceCard'
 import PriceChart from '../components/PriceChart'
 import LoadingSpinner from '../components/LoadingSpinner'
+import AdBanner from '../components/AdBanner'
 
 const DAY_OPTIONS = [7, 30, 90]
 
@@ -177,6 +178,8 @@ export default function Game() {
         </>
       )}
 
+      <AdBanner className="mt-10 mb-10" />
+
       {/* ── Price history chart ── */}
       <div className="bg-[#111827] border border-white/5 rounded-2xl p-6">
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
@@ -213,6 +216,8 @@ export default function Game() {
           <PriceChart history={history} />
         )}
       </div>
+
+      <AdBanner className="mt-10" />
     </div>
   )
 }
