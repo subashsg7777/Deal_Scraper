@@ -119,6 +119,39 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Popular Games ── */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+        <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 sm:p-7">
+          <h2 className="text-2xl font-black text-[#e5e7eb] mb-4">🔥 Popular Games</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <Link
+              to="/game/69b52f0660f9e6d7a4183316"
+              className="rounded-xl border border-[#1d9bf0]/30 bg-[#1d9bf0]/10 px-4 py-3 text-[#dbeafe] font-semibold hover:bg-[#1d9bf0]/20 hover:border-[#1d9bf0]/50 transition"
+            >
+              Cyberpunk 2077
+            </Link>
+            <Link
+              to="/game/69b7713923c3b3b3ff8a4ca2"
+              className="rounded-xl border border-[#22c55e]/30 bg-[#22c55e]/10 px-4 py-3 text-[#dcfce7] font-semibold hover:bg-[#22c55e]/20 hover:border-[#22c55e]/50 transition"
+            >
+              Elden Ring
+            </Link>
+            <Link
+              to="/game/69b52f0660f9e6d7a4183327"
+              className="rounded-xl border border-[#a78bfa]/30 bg-[#8b5cf6]/10 px-4 py-3 text-[#ede9fe] font-semibold hover:bg-[#8b5cf6]/20 hover:border-[#a78bfa]/50 transition"
+            >
+              Red Dead Redemption 2
+            </Link>
+            <Link
+              to="/game/69b52f0660f9e6d7a4183326"
+              className="rounded-xl border border-[#f59e0b]/30 bg-[#f59e0b]/10 px-4 py-3 text-[#fef3c7] font-semibold hover:bg-[#f59e0b]/20 hover:border-[#f59e0b]/50 transition"
+            >
+              Hogwarts Legacy
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ── Deals grid ── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         {/* Section header */}
