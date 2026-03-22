@@ -7,12 +7,14 @@ import {
   History,
   ShoppingBag,
   CalendarDays,
+  Bell,
 } from 'lucide-react'
-import { getGamePrices, getGameHistory } from '../api/api'
+import { getGamePrices, getGameHistory, subscribeToGame } from '../api/api'
 import StorePriceCard from '../components/StorePriceCard'
 import PriceChart from '../components/PriceChart'
 import LoadingSpinner from '../components/LoadingSpinner'
 import AdBanner from '../components/AdBanner'
+import Toast from '../components/Toast'
 
 const DAY_OPTIONS = [7, 30, 90]
 
@@ -47,15 +49,81 @@ export default function Game() {
   const [histError, setHistError]         = useState(null)
   const [days, setDays] = useState(90)
 
+  // Game subscription
+  const [subEmail, setSubEmail] = useState('')
+  const [subLoading, setSubLoading] = useState(false)
+  const [toast, setToast] = useState(null)
+
   // Optimistic name from search navigation state
   const nameFromState = location.state?.gameName
+
+  // Update page meta tags for SEO
+  useEffect(() => {
+    const displayName = prices?.gameName ?? nameFromState ?? `Game #${id}`
+    const cheapestPrice = prices?.cheapestPrice ?? 'best'
+    const cheapestStore = prices?.cheapestStore ?? 'store'
+    
+    document.title = `${displayName} Prices | Steam, Epic, Xbox Comparison`
+    
+    const metaDescription = document.querySelector('meta[name="description"]')
+    if (metaDescription) {
+      metaDescription.content = `Compare prices for ${displayName} across Steam, Epic Games, and Xbox. Best price: ${cheapestPrice ? cheapestPrice + ' on ' + cheapestStore : 'Check now'}.`
+    }
+    
+    // Update Open Graph tags
+    const ogTitle = document.querySelector('meta[property="og:title"]')
+    const ogDescription = document.querySelector('meta[property="og:description"]')
+    const canonical = document.querySelector('link[rel="canonical"]')
+    
+    if (ogTitle) ogTitle.content = `Compare ${displayName} Prices`
+    if (ogDescription) ogDescription.content = `Find the best price for ${displayName} across all major gaming stores.`
+    if (canonical) canonical.href = `https://deal-scraper.vercel.app/game/${id}`
+    
+    // Add JSON-LD structured data
+    const existingScript = document.getElementById('game-schema')
+    if (existingScript) existingScript.remove()
+    
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": displayName,
+      "url": `https://deal-scraper.vercel.app/game/${id}`,
+      "offers": storeResults.map(item => ({
+        "@type": "Offer",
+        "priceCurrency": prices?.currency || "USD",
+        "price": item.price,
+        "seller": {
+          "@type": "Organization",
+          "name": item.store
+        }
+      })),
+      "aggregateOffer": {
+        "@type": "AggregateOffer",
+        "priceCurrency": prices?.currency || "USD",
+        "lowPrice": prices?.cheapestPrice,
+        "highPrice": storeResults.length > 0 ? Math.max(...storeResults.map(r => r.price)) : prices?.cheapestPrice,
+        "offerCount": storeResults.length
+      }
+    }
+    
+    const scriptTag = document.createElement('script')
+    scriptTag.id = 'game-schema'
+    scriptTag.type = 'application/ld+json'
+    scriptTag.innerHTML = JSON.stringify(schema)
+    document.head.appendChild(scriptTag)
+    
+    return () => {
+      const script = document.getElementById('game-schema')
+      if (script) script.remove()
+    }
+  }, [prices, id, nameFromState, storeResults])
 
   useEffect(() => {
     let cancelled = false
     setPricesLoading(true)
     setPricesError(null)
     getGamePrices(id)
-      .then((d) => { if (!cancelled) setPrices(d) })
+      .then((d) => { if (!cancelled) {  setPrices(d); console.log("Game prices:", d); } })
       .catch((e) => { if (!cancelled) setPricesError(e.message) })
       .finally(() => { if (!cancelled) setPricesLoading(false) })
     return () => { cancelled = true }
@@ -75,6 +143,38 @@ export default function Game() {
   const displayName = prices?.gameName ?? nameFromState ?? `Game #${id}`
   const storeResults = prices?.results ?? []
   const cheapestKey = prices?.cheapestStore?.toLowerCase()
+  const storeLinks = prices?.storeLinks ?? {}
+
+  const showToast = (message, type = 'success') => {
+    setToast({ message, type })
+    setTimeout(() => setToast(null), 3000)
+  }
+
+  const handleGameSubscribe = async (e) => {
+    e.preventDefault()
+
+    if (!subEmail.trim()) {
+      showToast('Please enter a valid email', 'error')
+      return
+    }
+
+    setSubLoading(true)
+
+    try {
+      await subscribeToGame(subEmail, id, displayName)
+      showToast(`Subscribed to ${displayName} price alerts!`, 'success')
+      setSubEmail('')
+    } catch (error) {
+      const errorMsg = error.message || 'Failed to subscribe'
+      if (errorMsg.includes('already')) {
+        showToast(errorMsg, 'info')
+      } else {
+        showToast(errorMsg, 'error')
+      }
+    } finally {
+      setSubLoading(false)
+    }
+  }
 
   return (
     <div className="min-h-screen max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -146,6 +246,31 @@ export default function Game() {
             </div>
           </div>
 
+          {/* Subscribe section */}
+          <div className="mb-10 bg-gradient-to-r from-[#6366f1]/10 to-transparent border border-[#6366f1]/20 rounded-2xl p-6 animate-fade-in">
+            <form onSubmit={handleGameSubscribe} className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <Bell size={18} className="text-[#6366f1]" />
+                <span className="text-sm font-semibold text-[#e5e7eb]">Get notified on price drops</span>
+              </div>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={subEmail}
+                onChange={(e) => setSubEmail(e.target.value)}
+                disabled={subLoading}
+                className="flex-1 min-w-0 px-4 py-2 bg-[#0f172a] border border-[#475569] rounded-lg text-sm text-white placeholder-[#94a3b8] focus:outline-none focus:border-[#6366f1] focus:ring-1 focus:ring-[#6366f1] disabled:opacity-50"
+              />
+              <button
+                type="submit"
+                disabled={subLoading}
+                className="px-5 py-2 bg-[#6366f1] hover:bg-[#4f46e5] text-white text-sm font-semibold rounded-lg transition disabled:opacity-50 flex-shrink-0"
+              >
+                {subLoading ? 'Subscribing...' : 'Subscribe'}
+              </button>
+            </form>
+          </div>
+
           {/* Store price cards */}
           <div className="mb-12">
             <h2 className="flex items-center gap-2 text-base font-bold text-[#e5e7eb] mb-4">
@@ -162,6 +287,7 @@ export default function Game() {
                       scrapedAt={item.scrapedAt}
                       isCheapest={item.store?.toLowerCase() === cheapestKey}
                       currency={prices?.currency}
+                      store_link={storeLinks}
                     />
                   ))
                 : ['steam', 'epic', 'xbox'].map((s) => (
@@ -171,6 +297,7 @@ export default function Game() {
                       price={null}
                       isCheapest={false}
                       currency={prices?.currency}
+                      store_link={storeLinks}
                     />
                   ))}
             </div>
@@ -218,6 +345,7 @@ export default function Game() {
       </div>
 
       <AdBanner className="mt-10" />
+      {toast && <Toast message={toast.message} type={toast.type} />}
     </div>
   )
 }

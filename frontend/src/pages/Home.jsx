@@ -13,9 +13,24 @@ const STATS = [
 ]
 
 export default function Home() {
+  const MAX_HOME_DEALS = 16
   const [deals, setDeals] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+
+  // Reset meta tags to default when Home loads
+  useEffect(() => {
+    document.title = 'DealScraper - Track Game Prices on Steam, Epic, Xbox | Best Deals'
+    
+    const metaDescription = document.querySelector('meta[name="description"]')
+    if (metaDescription) {
+      metaDescription.content = 'Compare game prices across Steam, Epic Games, and Xbox. Find the best deals, track price history, and get notifications on price drops.'
+    }
+    
+    // Remove any game-specific JSON-LD
+    const gameSchema = document.getElementById('game-schema')
+    if (gameSchema) gameSchema.remove()
+  }, [])
 
   const fetchDeals = useCallback(async () => {
     setLoading(true)
@@ -33,6 +48,8 @@ export default function Home() {
   useEffect(() => {
     fetchDeals()
   }, [fetchDeals])
+
+  const visibleDeals = deals.slice(0, MAX_HOME_DEALS)
 
   return (
     <div className="min-h-screen">
@@ -113,7 +130,7 @@ export default function Home() {
             <div>
               <h2 className="text-xl font-bold text-[#e5e7eb]">Latest Deals</h2>
               <p className="text-[#9ca3af] text-xs mt-0.5">
-                {loading ? 'Fetching…' : `${deals.length} active deal${deals.length !== 1 ? 's' : ''}`}
+                {loading ? 'Fetching…' : `${visibleDeals.length} active deal${visibleDeals.length !== 1 ? 's' : ''}`}
               </p>
             </div>
           </div>
@@ -150,17 +167,15 @@ export default function Home() {
         ) : (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 animate-fade-in">
-              {deals.map((deal, idx) => (
+              {visibleDeals.map((deal, idx) => (
                 <React.Fragment key={deal.gameId ?? idx}>
                   <DealCard deal={deal} />
-                  {(idx + 1) % 8 === 0 && (
+                  {(idx + 1) % 8 === 0 && (idx + 1) < visibleDeals.length && (
                     <AdBanner className="sm:col-span-2 lg:col-span-3 xl:col-span-4" />
                   )}
                 </React.Fragment>
               ))}
             </div>
-
-            <AdBanner className="mt-10" />
           </>
         )}
       </section>
