@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ArrowLeft, CalendarDays, Tag, TrendingDown } from 'lucide-react'
+import { getGamePrices, getGameHistory } from '../api/api'
 
-const API_BASE = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api').replace(/\/$/, '')
 const STORES = ['steam', 'epic', 'xbox']
 
 function formatCurrency(value, currency = 'INR') {
@@ -66,17 +66,10 @@ export default function GameDetails() {
       setError(null)
 
       try {
-        const [pricesRes, historyRes] = await Promise.all([
-          fetch(`${API_BASE}/games/${id}/prices`),
-          fetch(`${API_BASE}/games/${id}/history`),
+        const [pricesJson, historyJson] = await Promise.all([
+          getGamePrices(id),
+          getGameHistory(id, 90).catch(() => []),
         ])
-
-        if (!pricesRes.ok) {
-          throw new Error('Game not found')
-        }
-
-        const pricesJson = await pricesRes.json()
-        const historyJson = historyRes.ok ? await historyRes.json() : []
 
         if (!cancelled) {
           setPricesData(pricesJson)
