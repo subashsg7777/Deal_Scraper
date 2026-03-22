@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage - Highest Priority -->
+  <url>
+    <loc>https://deal-scraper.vercel.app/</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Search Page -->
+  <url>
+    <loc>https://deal-scraper.vercel.app/search</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Game Detail Pages - Dynamic Route Pattern -->
+  <!-- Note: Individual game pages are dynamically generated.
+       For complete indexing, consider:
+       1. Using a sitemap generator that queries your API
+       2. Implementing a backend endpoint at /api/sitemap
+       3. Using Google's Dynamic Rendering if needed
+       
+       Example game URLs (update game IDs based on your database):
+  -->
+  <url>
+    <loc>https://deal-scraper.vercel.app/game/sample-game-id</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Privacy Policy -->
+  <url>
+    <loc>https://deal-scraper.vercel.app/privacy-policy</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Terms of Service -->
+  <url>
+    <loc>https://deal-scraper.vercel.app/terms-of-service</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Contact Page -->
+  <url>
+    <loc>https://deal-scraper.vercel.app/contact</loc>
+    <lastmod>2026-03-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+</urlset>
