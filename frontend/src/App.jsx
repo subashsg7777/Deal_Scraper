@@ -4,7 +4,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
 import Search from './pages/Search'
-import GameDetails from './pages/GameDetails'
+import Game from './pages/Game'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsOfService from './pages/TermsOfService'
 import Contact from './pages/Contact'
@@ -19,7 +19,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<Search />} />
-            <Route path="/game/:id" element={<GameDetails />} />
+            <Route path="/game/:id" element={<Game />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
             <Route path="/contact" element={<Contact />} />
