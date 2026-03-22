@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 
-Sitemap: https://deal-scraper-1q5s.onrender.com/sitemap.xml
+Sitemap: https://deal-scraper.vercel.app/sitemap.xml
