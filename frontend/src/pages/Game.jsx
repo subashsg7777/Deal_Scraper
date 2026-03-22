@@ -62,6 +62,7 @@ export default function Game() {
     const displayName = prices?.gameName ?? nameFromState ?? `Game #${id}`
     const cheapestPrice = prices?.cheapestPrice ?? 'best'
     const cheapestStore = prices?.cheapestStore ?? 'store'
+    const storeResults = prices?.results ?? []
     
     document.title = `${displayName} Prices | Steam, Epic, Xbox Comparison`
     
@@ -116,7 +117,7 @@ export default function Game() {
       const script = document.getElementById('game-schema')
       if (script) script.remove()
     }
-  }, [prices, id, nameFromState, storeResults])
+  }, [prices, id, nameFromState])
 
   useEffect(() => {
     let cancelled = false
