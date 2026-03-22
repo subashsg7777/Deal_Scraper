@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -9,24 +9,8 @@ import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsOfService from './pages/TermsOfService'
 import Contact from './pages/Contact'
 import NotFound from './pages/NotFound'
-import SubscriberModal from './components/SubscriberModal'
 
 export default function App() {
-  const [showModal, setShowModal] = useState(false)
-
-  useEffect(() => {
-    // Check if user has visited before
-    const hasVisited = localStorage.getItem('subscriberModalShown')
-    if (!hasVisited) {
-      setShowModal(true)
-      localStorage.setItem('subscriberModalShown', 'true')
-    }
-  }, [])
-
-  const closeModal = () => {
-    setShowModal(false)
-  }
-
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-[#0f172a] flex flex-col">
@@ -43,7 +27,6 @@ export default function App() {
           </Routes>
         </main>
         <Footer />
-        {showModal && <SubscriberModal onClose={closeModal} />}
       </div>
     </BrowserRouter>
   )
