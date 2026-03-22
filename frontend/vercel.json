@@ -5,11 +5,7 @@
       "headers": [
         {
           "key": "Content-Type",
-          "value": "application/xml; charset=utf-8"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600, s-maxage=3600"
+          "value": "application/xml"
         }
       ]
     },
@@ -18,15 +14,23 @@
       "headers": [
         {
           "key": "Content-Type",
-          "value": "text/plain; charset=utf-8"
+          "value": "text/plain"
         }
       ]
     }
   ],
-  "rewrites": [
+  "routes": [
     {
-      "source": "/((?!sitemap\\.xml|robots\\.txt).*)",
-      "destination": "/index.html"
+      "src": "/sitemap.xml",
+      "dest": "/sitemap.xml"
+    },
+    {
+      "src": "/robots.txt",
+      "dest": "/robots.txt"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
