@@ -7,14 +7,12 @@ import {
   History,
   ShoppingBag,
   CalendarDays,
-  Bell,
 } from 'lucide-react'
-import { getGamePrices, getGameHistory, subscribeToGame } from '../api/api'
+import { getGamePrices, getGameHistory } from '../api/api'
 import StorePriceCard from '../components/StorePriceCard'
 import PriceChart from '../components/PriceChart'
 import LoadingSpinner from '../components/LoadingSpinner'
 import AdBanner from '../components/AdBanner'
-import Toast from '../components/Toast'
 
 const DAY_OPTIONS = [7, 30, 90]
 
@@ -48,11 +46,6 @@ export default function Game() {
   const [pricesError, setPricesError]     = useState(null)
   const [histError, setHistError]         = useState(null)
   const [days, setDays] = useState(90)
-
-  // Game subscription
-  const [subEmail, setSubEmail] = useState('')
-  const [subLoading, setSubLoading] = useState(false)
-  const [toast, setToast] = useState(null)
 
   // Optimistic name from search navigation state
   const nameFromState = location.state?.gameName
@@ -146,36 +139,6 @@ export default function Game() {
   const cheapestKey = prices?.cheapestStore?.toLowerCase()
   const storeLinks = prices?.storeLinks ?? {}
 
-  const showToast = (message, type = 'success') => {
-    setToast({ message, type })
-    setTimeout(() => setToast(null), 3000)
-  }
-
-  const handleGameSubscribe = async (e) => {
-    e.preventDefault()
-
-    if (!subEmail.trim()) {
-      showToast('Please enter a valid email', 'error')
-      return
-    }
-
-    setSubLoading(true)
-
-    try {
-      await subscribeToGame(subEmail, id, displayName)
-      showToast(`Subscribed to ${displayName} price alerts!`, 'success')
-      setSubEmail('')
-    } catch (error) {
-      const errorMsg = error.message || 'Failed to subscribe'
-      if (errorMsg.includes('already')) {
-        showToast(errorMsg, 'info')
-      } else {
-        showToast(errorMsg, 'error')
-      }
-    } finally {
-      setSubLoading(false)
-    }
-  }
 
   return (
     <div className="min-h-screen max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -247,30 +210,6 @@ export default function Game() {
             </div>
           </div>
 
-          {/* Subscribe section */}
-          <div className="mb-10 bg-gradient-to-r from-[#6366f1]/10 to-transparent border border-[#6366f1]/20 rounded-2xl p-6 animate-fade-in">
-            <form onSubmit={handleGameSubscribe} className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
-              <div className="flex items-center gap-2 flex-shrink-0">
-                <Bell size={18} className="text-[#6366f1]" />
-                <span className="text-sm font-semibold text-[#e5e7eb]">Get notified on price drops</span>
-              </div>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                value={subEmail}
-                onChange={(e) => setSubEmail(e.target.value)}
-                disabled={subLoading}
-                className="flex-1 min-w-0 px-4 py-2 bg-[#0f172a] border border-[#475569] rounded-lg text-sm text-white placeholder-[#94a3b8] focus:outline-none focus:border-[#6366f1] focus:ring-1 focus:ring-[#6366f1] disabled:opacity-50"
-              />
-              <button
-                type="submit"
-                disabled={subLoading}
-                className="px-5 py-2 bg-[#6366f1] hover:bg-[#4f46e5] text-white text-sm font-semibold rounded-lg transition disabled:opacity-50 flex-shrink-0"
-              >
-                {subLoading ? 'Subscribing...' : 'Subscribe'}
-              </button>
-            </form>
-          </div>
 
           {/* Store price cards */}
           <div className="mb-12">
@@ -346,7 +285,6 @@ export default function Game() {
       </div>
 
       <AdBanner className="mt-10" />
-      {toast && <Toast message={toast.message} type={toast.type} />}
     </div>
   )
 }
