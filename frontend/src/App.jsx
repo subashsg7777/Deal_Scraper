@@ -9,13 +9,15 @@ import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsOfService from './pages/TermsOfService'
 import Contact from './pages/Contact'
 import NotFound from './pages/NotFound'
+import About from './pages/About'
+import FAQ from './pages/FAQ'
 
 export default function App() {
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-[#0f172a] flex flex-col">
+      <div className="min-h-screen bg-surface text-on-surface flex flex-col font-body selection:bg-primary/30">
         <Navbar />
-        <main className="pt-16 pb-8 flex-1">
+        <main className="flex-1 mt-16">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<Search />} />
@@ -23,6 +25,8 @@ export default function App() {
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/faq" element={<FAQ />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

@@ -1,15 +1,61 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: "class",
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
-      fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-      },
       colors: {
+        "inverse-surface": "#dae2fd",
+        "on-surface-variant": "#cbc3d7",
+        "on-primary-fixed-variant": "#5516be",
+        "tertiary": "#4ae176",
+        "surface-dim": "#0b1326",
+        "outline": "#958ea0",
+        "on-secondary-fixed-variant": "#004395",
+        "tertiary-fixed": "#6bff8f",
+        "error": "#ffb4ab",
+        "on-background": "#dae2fd",
+        "on-primary": "#3c0091",
+        "on-tertiary-fixed": "#002109",
+        "surface-variant": "#2d3449",
+        "on-primary-fixed": "#23005c",
+        "surface-container-lowest": "#060e20",
+        "secondary-container": "#0566d9",
+        "secondary-fixed": "#d8e2ff",
+        "inverse-on-surface": "#283044",
+        "primary": "#d0bcff",
+        "on-error": "#690005",
+        "on-error-container": "#ffdad6",
+        "on-tertiary-fixed-variant": "#005321",
+        "on-secondary-fixed": "#001a42",
+        "on-tertiary-container": "#003111",
+        "on-tertiary": "#003915",
+        "primary-fixed": "#e9ddff",
+        "on-primary-container": "#340080",
+        "on-secondary-container": "#e6ecff",
+        "outline-variant": "#494454",
+        "background": "#0b1326",
+        "primary-container": "#a078ff",
+        "secondary": "#adc6ff",
+        "on-secondary": "#002e6a",
+        "secondary-fixed-dim": "#adc6ff",
+        "surface-container-low": "#131b2e",
+        "tertiary-fixed-dim": "#4ae176",
+        "surface-bright": "#31394d",
+        "surface-container-high": "#222a3d",
+        "surface": "#0b1326",
+        "surface-tint": "#d0bcff",
+        "inverse-primary": "#6d3bd7",
+        "error-container": "#93000a",
+        "tertiary-container": "#00a74b",
+        "surface-container": "#171f33",
+        "primary-fixed-dim": "#d0bcff",
+        "surface-container-highest": "#2d3449",
+        "on-surface": "#dae2fd",
+        // Keeping original brand ones around just in case
         brand: {
           bg: '#0f172a',
           card: '#111827',
@@ -17,6 +63,18 @@ export default {
           success: '#22c55e',
           danger: '#ef4444',
         },
+      },
+      fontFamily: {
+        "headline": ["Inter"],
+        "body": ["Inter"],
+        "label": ["Inter"],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+      },
+      borderRadius: {
+        "DEFAULT": "0.25rem",
+        "lg": "0.5rem",
+        "xl": "0.75rem",
+        "full": "9999px"
       },
       keyframes: {
         fadeIn: {
