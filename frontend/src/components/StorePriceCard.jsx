@@ -50,6 +50,11 @@ function timeAgo(dateStr) {
   return new Date(dateStr).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })
 }
 
+function hasValidPrice(price) {
+  const parsed = Number(price)
+  return Number.isFinite(parsed) && parsed > 0
+}
+
 export default function StorePriceCard({ store, price, scrapedAt, isCheapest, currency = 'INR' }) {
   const key = store?.toLowerCase()
   const cfg = STORE_CONFIG[key] ?? {
@@ -61,6 +66,7 @@ export default function StorePriceCard({ store, price, scrapedAt, isCheapest, cu
     gradient: 'from-white/5',
     glow: 'shadow-white/5',
   }
+  const isAvailable = hasValidPrice(price)
 
   return (
     <div
@@ -97,13 +103,13 @@ export default function StorePriceCard({ store, price, scrapedAt, isCheapest, cu
 
         {/* Price */}
         <div className="mb-3">
-          {price != null ? (
+          {isAvailable ? (
             <p
               className={`text-3xl font-extrabold tracking-tight ${
                 isCheapest ? 'text-[#22c55e]' : 'text-[#e5e7eb]'
               }`}
             >
-              {formatPrice(price, currency)}
+              {formatPrice(Number(price), currency)}
             </p>
           ) : (
             <p className="text-[#6b7280] text-base font-medium">Not Available</p>

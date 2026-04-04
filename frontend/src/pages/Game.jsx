@@ -35,6 +35,11 @@ function formatDateTime(str) {
   })
 }
 
+function hasValidPrice(value) {
+  const parsed = Number(value)
+  return Number.isFinite(parsed) && parsed > 0
+}
+
 export default function Game() {
   const { id } = useParams()
   const location = useLocation()
@@ -136,7 +141,12 @@ export default function Game() {
 
   const displayName = prices?.gameName ?? nameFromState ?? `Game #${id}`
   const storeResults = prices?.results ?? []
-  const cheapestKey = prices?.cheapestStore?.toLowerCase()
+  const availableStoreResults = storeResults.filter((item) => hasValidPrice(item?.price))
+  const cheapestResult = availableStoreResults.reduce((best, item) => {
+    if (!best) return item
+    return Number(item.price) < Number(best.price) ? item : best
+  }, null)
+  const cheapestKey = cheapestResult?.store?.toLowerCase()
   const storeLinks = prices?.storeLinks ?? {}
 
 
@@ -169,9 +179,9 @@ export default function Game() {
                 <TrendingDown size={11} />
                 Best deal tracked
               </span>
-              {prices?.cheapestStore && (
+              {cheapestResult?.store && (
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#6366f1]/10 text-[#a5b4fc] border border-[#6366f1]/20 capitalize">
-                  {prices.cheapestStore}
+                  {cheapestResult.store}
                 </span>
               )}
             </div>
@@ -182,14 +192,14 @@ export default function Game() {
                 <h1 className="text-3xl sm:text-4xl font-black text-[#e5e7eb] leading-tight mb-2 tracking-tight">
                   {displayName}
                 </h1>
-                {prices?.cheapestPrice != null && (
+                {cheapestResult?.price != null && (
                   <div className="flex items-baseline gap-2">
                     <span className="text-[#9ca3af] text-sm">Best price:</span>
                     <span className="text-[#22c55e] text-2xl font-extrabold tracking-tight">
-                      {formatPrice(prices.cheapestPrice, prices.currency)}
+                      {formatPrice(Number(cheapestResult.price), prices.currency)}
                     </span>
                     <span className="text-[#9ca3af] text-sm font-medium capitalize">
-                      on {prices.cheapestStore}
+                      on {cheapestResult.store}
                     </span>
                   </div>
                 )}
@@ -223,7 +233,7 @@ export default function Game() {
                     <StorePriceCard
                       key={item.store}
                       store={item.store}
-                      price={item.price}
+                      price={hasValidPrice(item.price) ? item.price : null}
                       scrapedAt={item.scrapedAt}
                       isCheapest={item.store?.toLowerCase() === cheapestKey}
                       currency={prices?.currency}

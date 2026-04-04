@@ -12,6 +12,12 @@ const STATS = [
   { label: 'Games Indexed', value: '500+' },
 ]
 
+function isAvailableDeal(deal) {
+  const newPrice = Number(deal?.newPrice)
+  const oldPrice = Number(deal?.oldPrice)
+  return Number.isFinite(newPrice) && Number.isFinite(oldPrice) && newPrice > 0 && oldPrice > 0
+}
+
 export default function Home() {
   const MAX_HOME_DEALS = 16
   const [deals, setDeals] = useState([])
@@ -49,7 +55,7 @@ export default function Home() {
     fetchDeals()
   }, [fetchDeals])
 
-  const visibleDeals = deals.slice(0, MAX_HOME_DEALS)
+  const visibleDeals = deals.filter(isAvailableDeal).slice(0, MAX_HOME_DEALS)
 
   return (
     <div className="min-h-screen">
