@@ -288,16 +288,7 @@ export default function Game() {
       <section className="mt-10 bg-[#111827] border border-white/5 rounded-2xl p-6 sm:p-7">
         <h2 className="text-lg font-bold text-[#e5e7eb] mb-3">About {displayName} Price Tracking</h2>
         <p className="text-[#cbd5e1] text-sm sm:text-[15px] leading-7">
-          Track the latest price of {displayName} across multiple stores in one place and compare offers from Steam,
-          Epic Games, and Xbox without switching between tabs. This page is built to help you make faster buying
-          decisions by combining current prices, the lowest available deal, and recent history in a single view. When
-          discounts change during seasonal sales or limited-time promotions, you can quickly see which platform offers
-          the strongest value right now. The store cards highlight the best deal at a glance, while the history chart
-          provides context so you can understand whether today&apos;s price is part of a normal pattern or a rare drop.
-          For players who manage wishlists and budget purchases, this comparison workflow reduces guesswork and avoids
-          overpaying. You can check fresh updates as new price snapshots are collected, compare storefront pricing with
-          confidence, and choose the right time to buy. Whether you are looking for your first purchase or waiting for
-          a deeper discount, this tracker keeps your decision process clear, transparent, and data-driven.
+          {prices?.description || `Track the latest price of ${displayName} across multiple stores in one place and compare offers from Steam, Epic Games, and Xbox without switching between tabs. This page is built to help you make faster buying decisions by combining current prices, the lowest available deal, and recent history in a single view. When discounts change during seasonal sales or limited-time promotions, you can quickly see which platform offers the strongest value right now.`}
         </p>
       </section>
 

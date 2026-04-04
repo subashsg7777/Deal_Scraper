@@ -15,6 +15,8 @@ public class Games {
 
     private String name;
 
+    private String description;
+
     private String publisher;
 
     private Map<String,String> stores;

@@ -157,9 +157,9 @@ public class GameService {
     }
 
     public LatestPricePerStoreResDto getLatestPricePerStore(String game_id){
-        String gameName = gameRepository.findById(game_id)
-            .map(Games::getName)
-            .orElse(null);
+        Games game = gameRepository.findById(game_id).orElse(null);
+        String gameName = game != null ? game.getName() : null;
+        String description = game != null ? game.getDescription() : null;
 
         Aggregation aggregation = Aggregation.newAggregation(
                 Aggregation.match(Criteria.where("gameId").is(game_id)),
@@ -196,6 +196,7 @@ public class GameService {
 
         LatestPricePerStoreResDto latestPricePerStoreResDto = new LatestPricePerStoreResDto();
         latestPricePerStoreResDto.setGameName(gameName);
+        latestPricePerStoreResDto.setDescription(description);
         latestPricePerStoreResDto.setResults(results);
         latestPricePerStoreResDto.setCheapestStore(cheapestStore);
         latestPricePerStoreResDto.setCheapestPrice(lowest);

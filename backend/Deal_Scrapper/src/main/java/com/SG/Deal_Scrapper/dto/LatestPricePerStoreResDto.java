@@ -9,6 +9,7 @@ import java.util.List;
 public class LatestPricePerStoreResDto {
 
     private String gameName;
+    private String description;
     private List<LatestPrice> results;
     private String cheapestStore;
     private Double cheapestPrice;
