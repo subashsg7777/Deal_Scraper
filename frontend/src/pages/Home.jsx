@@ -89,6 +89,33 @@ export default function Home() {
             <span className="text-[#22c55e] font-semibold">Xbox</span> — all in one place.
           </p>
 
+          <div className="space-y-4 max-w-3xl mx-auto mb-8 text-[#cbd5e1] text-sm sm:text-base leading-7 text-left sm:text-center">
+            <p>
+              DealScraper is built for buyers who want more than a raw price widget. Each game page
+              explains what the game is, why its current price matters, and how its recent history
+              compares across the major stores. That keeps the site useful even when a feed is slow,
+              a store is missing data, or a discount has not refreshed yet.
+            </p>
+            <p>
+              You can use the homepage to find active deals, then open a game page for a written
+              summary, a live comparison, and a compact price insight section that highlights the
+              lowest recorded price, the current best deal, and the most recent drop when the data is
+              available.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-10">
+            <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-[#e5e7eb]">
+              Tracking 500+ games
+            </span>
+            <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-[#e5e7eb]">
+              Updated every 6 hours
+            </span>
+            <span className="inline-flex items-center rounded-full border border-[#22c55e]/20 bg-[#22c55e]/10 px-3 py-1.5 text-xs font-semibold text-[#dcfce7]">
+              {loading ? 'Latest deals loading…' : `${visibleDeals.length} latest deals`}
+            </span>
+          </div>
+
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
@@ -132,24 +159,28 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <Link
               to="/game/69b52f0660f9e6d7a4183316"
+              state={{ gameName: 'Cyberpunk 2077' }}
               className="rounded-xl border border-[#1d9bf0]/30 bg-[#1d9bf0]/10 px-4 py-3 text-[#dbeafe] font-semibold hover:bg-[#1d9bf0]/20 hover:border-[#1d9bf0]/50 transition"
             >
               Cyberpunk 2077
             </Link>
             <Link
               to="/game/69b7713923c3b3b3ff8a4ca2"
+              state={{ gameName: 'Elden Ring' }}
               className="rounded-xl border border-[#22c55e]/30 bg-[#22c55e]/10 px-4 py-3 text-[#dcfce7] font-semibold hover:bg-[#22c55e]/20 hover:border-[#22c55e]/50 transition"
             >
               Elden Ring
             </Link>
             <Link
               to="/game/69b52f0660f9e6d7a4183327"
+              state={{ gameName: 'Red Dead Redemption 2' }}
               className="rounded-xl border border-[#a78bfa]/30 bg-[#8b5cf6]/10 px-4 py-3 text-[#ede9fe] font-semibold hover:bg-[#8b5cf6]/20 hover:border-[#a78bfa]/50 transition"
             >
               Red Dead Redemption 2
             </Link>
             <Link
               to="/game/69b52f0660f9e6d7a4183326"
+              state={{ gameName: 'Hogwarts Legacy' }}
               className="rounded-xl border border-[#f59e0b]/30 bg-[#f59e0b]/10 px-4 py-3 text-[#fef3c7] font-semibold hover:bg-[#f59e0b]/20 hover:border-[#f59e0b]/50 transition"
             >
               Hogwarts Legacy

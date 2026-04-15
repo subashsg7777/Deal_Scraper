@@ -19,10 +19,26 @@ export default function TermsOfService() {
             </section>
 
             <section>
+              <h2 className="text-xl font-bold text-[#e5e7eb] mb-2">Content and Availability</h2>
+              <p>
+                We try to keep written explanations, price comparisons, and store links available even when live
+                feeds fail. Some pages may show fallback guidance until the next successful update.
+              </p>
+            </section>
+
+            <section>
               <h2 className="text-xl font-bold text-[#e5e7eb] mb-2">Accuracy Disclaimer</h2>
               <p>
                 While we try to keep data up to date, we cannot guarantee that all price information is always
                 accurate, complete, or current.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-bold text-[#e5e7eb] mb-2">Third-Party Services</h2>
+              <p>
+                The site may rely on analytics and advertising partners. Those services operate under their own
+                terms and privacy practices in addition to ours.
               </p>
             </section>
 
@@ -39,6 +55,13 @@ export default function TermsOfService() {
               <p>
                 We may revise these terms at any time. By continuing to use the site, you agree to the latest
                 version.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-bold text-[#e5e7eb] mb-2">Contact</h2>
+              <p>
+                Questions about these terms can be raised through the contact page or the email link in the footer.
               </p>
             </section>
           </div>

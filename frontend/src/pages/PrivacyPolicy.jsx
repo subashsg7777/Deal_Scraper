@@ -19,10 +19,26 @@ export default function PrivacyPolicy() {
             </section>
 
             <section>
+              <h2 className="text-xl font-bold text-[#e5e7eb] mb-2">Information We Process</h2>
+              <p>
+                We may process standard analytics signals such as page views, device type, and referral data so
+                we can understand which game pages are useful and where the site needs better content coverage.
+              </p>
+            </section>
+
+            <section>
               <h2 className="text-xl font-bold text-[#e5e7eb] mb-2">Analytics and Ads</h2>
               <p>
                 We use Google Analytics to understand usage trends. We may also use Google AdSense to show
                 advertisements. These services can use cookies and similar technologies to operate.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-bold text-[#e5e7eb] mb-2">Your Choices</h2>
+              <p>
+                You can control cookies through your browser settings and can contact us if you want help
+                understanding how the site uses third-party services.
               </p>
             </section>
 
@@ -46,6 +62,14 @@ export default function PrivacyPolicy() {
               <p>
                 This policy may be updated over time. Continued use of the site means you accept the latest
                 version.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-bold text-[#e5e7eb] mb-2">Contact</h2>
+              <p>
+                If you have questions about privacy or advertising, use the contact page or email the site owner
+                through the footer links.
               </p>
             </section>
           </div>
