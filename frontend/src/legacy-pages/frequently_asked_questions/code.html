@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FAQ - DealScraper</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-surface": "#dae2fd",
+              "on-surface-variant": "#cbc3d7",
+              "on-primary-fixed-variant": "#5516be",
+              "tertiary": "#4ae176",
+              "surface-dim": "#0b1326",
+              "outline": "#958ea0",
+              "on-secondary-fixed-variant": "#004395",
+              "tertiary-fixed": "#6bff8f",
+              "error": "#ffb4ab",
+              "on-background": "#dae2fd",
+              "on-primary": "#3c0091",
+              "on-tertiary-fixed": "#002109",
+              "surface-variant": "#2d3449",
+              "on-primary-fixed": "#23005c",
+              "surface-container-lowest": "#060e20",
+              "secondary-container": "#0566d9",
+              "secondary-fixed": "#d8e2ff",
+              "inverse-on-surface": "#283044",
+              "primary": "#d0bcff",
+              "on-error": "#690005",
+              "on-error-container": "#ffdad6",
+              "on-tertiary-fixed-variant": "#005321",
+              "on-secondary-fixed": "#001a42",
+              "on-tertiary-container": "#003111",
+              "on-tertiary": "#003915",
+              "primary-fixed": "#e9ddff",
+              "on-primary-container": "#340080",
+              "on-secondary-container": "#e6ecff",
+              "outline-variant": "#494454",
+              "background": "#0b1326",
+              "primary-container": "#a078ff",
+              "secondary": "#adc6ff",
+              "on-secondary": "#002e6a",
+              "secondary-fixed-dim": "#adc6ff",
+              "surface-container-low": "#131b2e",
+              "tertiary-fixed-dim": "#4ae176",
+              "surface-bright": "#31394d",
+              "surface-container-high": "#222a3d",
+              "surface": "#0b1326",
+              "surface-tint": "#d0bcff",
+              "inverse-primary": "#6d3bd7",
+              "error-container": "#93000a",
+              "tertiary-container": "#00a74b",
+              "surface-container": "#171f33",
+              "primary-fixed-dim": "#d0bcff",
+              "surface-container-highest": "#2d3449",
+              "on-surface": "#dae2fd"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .neon-glow {
+            box-shadow: 0 0 15px rgba(208, 188, 255, 0.3);
+        }
+        .neon-glow:focus-within {
+            box-shadow: 0 0 25px rgba(208, 188, 255, 0.5);
+        }
+        .glass-panel {
+            background: rgba(45, 52, 73, 0.6);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary/30">
+<!-- TopNavBar Implementation -->
+<nav class="fixed top-0 w-full z-50 bg-slate-900/60 backdrop-blur-xl border-b border-slate-700/15 shadow-2xl shadow-slate-950/50">
+<div class="flex items-center justify-between px-8 py-4 max-w-screen-2xl mx-auto">
+<div class="text-2xl font-bold tracking-tighter bg-gradient-to-br from-violet-300 to-blue-500 bg-clip-text text-transparent">
+                DealScraper
+            </div>
+<div class="hidden md:flex items-center gap-8 font-inter antialiased text-sm font-medium tracking-wide">
+<a class="text-slate-400 hover:text-slate-100 transition-colors" href="#">Deals</a>
+<a class="text-slate-400 hover:text-slate-100 transition-colors" href="#">About</a>
+<a class="text-slate-400 hover:text-slate-100 transition-colors" href="#">Contact</a>
+<a class="text-violet-300 border-b-2 border-violet-500 pb-1" href="#">FAQ</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-slate-800/40 rounded-lg transition-all active:scale-95 duration-200">
+<span class="material-symbols-outlined text-violet-400">search</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-24 px-6 max-w-4xl mx-auto">
+<!-- Hero / Search Section -->
+<section class="text-center mb-20">
+<h1 class="text-5xl md:text-6xl font-black tracking-tight mb-6 text-on-surface">
+                Knowledge <span class="text-primary">Center</span>
+</h1>
+<p class="text-on-surface-variant text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+                Everything you need to know about tracking the best gaming deals across the digital landscape.
+            </p>
+<!-- Search Bar with Neon Glow -->
+<div class="relative max-w-xl mx-auto">
+<div class="neon-glow flex items-center bg-surface-container-lowest rounded-full border border-outline-variant/20 px-6 py-4 focus-within:border-primary/40 transition-all">
+<span class="material-symbols-outlined text-primary mr-4">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-on-surface placeholder-outline w-full text-base" placeholder="Search for answers..." type="text"/>
+</div>
+</div>
+</section>
+<!-- FAQ Accordion Content -->
+<div class="space-y-4">
+<!-- Question 1: Active State Example -->
+<div class="group overflow-hidden rounded-xl bg-surface-container-low transition-all">
+<button class="w-full flex items-center justify-between p-6 text-left hover:bg-surface-container-high transition-colors">
+<span class="text-xl font-semibold text-primary">How does DealScraper work?</span>
+<span class="material-symbols-outlined text-primary transition-transform group-hover:rotate-180">expand_more</span>
+</button>
+<div class="p-6 pt-0 text-on-surface-variant leading-relaxed">
+                    DealScraper utilizes advanced proprietary crawling technology to monitor hundreds of digital storefronts simultaneously. We index prices, regional variations, and coupon codes to ensure you see the absolute lowest price currently available for any game in our database.
+                </div>
+</div>
+<!-- Question 2 -->
+<div class="group overflow-hidden rounded-xl bg-surface-container-low transition-all">
+<button class="w-full flex items-center justify-between p-6 text-left hover:bg-surface-container-high transition-colors">
+<span class="text-xl font-semibold text-on-surface group-hover:text-primary transition-colors">Which stores are supported?</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-transform">expand_more</span>
+</button>
+<div class="hidden px-6 pb-6 text-on-surface-variant leading-relaxed">
+                    We currently support over 50+ major digital retailers including Steam, Epic Games Store, GOG, Humble Bundle, Fanatical, and PlayStation Store. We only track authorized retailers to ensure your keys are always legitimate and safe.
+                </div>
+</div>
+<!-- Question 3 -->
+<div class="group overflow-hidden rounded-xl bg-surface-container-low transition-all">
+<button class="w-full flex items-center justify-between p-6 text-left hover:bg-surface-container-high transition-colors">
+<span class="text-xl font-semibold text-on-surface group-hover:text-primary transition-colors">How often are prices updated?</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-transform">expand_more</span>
+</button>
+<div class="hidden px-6 pb-6 text-on-surface-variant leading-relaxed">
+                    Our high-frequency trackers update prices every 15 minutes for popular titles and at least once every 2 hours for our entire library. During major sales events (like the Steam Summer Sale), update frequency increases to near real-time.
+                </div>
+</div>
+<!-- Question 4 -->
+<div class="group overflow-hidden rounded-xl bg-surface-container-low transition-all">
+<button class="w-full flex items-center justify-between p-6 text-left hover:bg-surface-container-high transition-colors">
+<span class="text-xl font-semibold text-on-surface group-hover:text-primary transition-colors">Are the prices accurate?</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-transform">expand_more</span>
+</button>
+<div class="hidden px-6 pb-6 text-on-surface-variant leading-relaxed">
+                    Yes. We pull data directly from store APIs and public pages. We also calculate the "all-time low" and "historical trend" to give you context on whether a current price is truly a good deal or just a standard discount.
+                </div>
+</div>
+<!-- Question 5 -->
+<div class="group overflow-hidden rounded-xl bg-surface-container-low transition-all">
+<button class="w-full flex items-center justify-between p-6 text-left hover:bg-surface-container-high transition-colors">
+<span class="text-xl font-semibold text-on-surface group-hover:text-primary transition-colors">Do you sell games directly?</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-transform">expand_more</span>
+</button>
+<div class="hidden px-6 pb-6 text-on-surface-variant leading-relaxed">
+                    No. DealScraper is a price comparison engine and discovery platform. We never handle your payment information or sell games directly. When you find a deal, we redirect you to the official retailer to complete your purchase securely.
+                </div>
+</div>
+<!-- Question 6 -->
+<div class="group overflow-hidden rounded-xl bg-surface-container-low transition-all">
+<button class="w-full flex items-center justify-between p-6 text-left hover:bg-surface-container-high transition-colors">
+<span class="text-xl font-semibold text-on-surface group-hover:text-primary transition-colors">How can I get notified of deals?</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-transform">expand_more</span>
+</button>
+<div class="hidden px-6 pb-6 text-on-surface-variant leading-relaxed">
+                    You can create a free account to set up "Price Watches" for specific games. When a game hits your target price, we'll send you a push notification or an email immediately. You can also follow our "Hype Pulse" section for trending massive price drops.
+                </div>
+</div>
+</div>
+<!-- Call to Action Section -->
+<section class="mt-20 p-10 rounded-2xl glass-panel relative overflow-hidden">
+<div class="absolute -right-20 -top-20 w-64 h-64 bg-primary/20 blur-[100px] rounded-full"></div>
+<div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+<div>
+<h3 class="text-2xl font-bold text-on-surface mb-2">Still have questions?</h3>
+<p class="text-on-surface-variant">Our support team is active 24/7 for the gaming community.</p>
+</div>
+<button class="px-8 py-4 rounded-xl bg-gradient-to-br from-primary to-secondary-container text-on-primary-container font-bold hover:scale-105 transition-transform active:scale-95 shadow-lg shadow-primary/20">
+                    Contact Support
+                </button>
+</div>
+</section>
+</main>
+<!-- Footer Implementation -->
+<footer class="w-full py-12 px-8 border-t border-slate-800/30 bg-slate-950">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-screen-2xl mx-auto">
+<div class="space-y-4">
+<div class="text-xl font-black text-slate-200">DealScraper</div>
+<p class="font-inter text-xs text-slate-500 uppercase tracking-widest leading-relaxed">
+                    © 2024 DealScraper. Built for gamers.
+                </p>
+</div>
+<div class="flex flex-col gap-3">
+<span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Navigation</span>
+<a class="font-inter text-xs text-slate-500 uppercase tracking-widest hover:text-violet-300 transition-colors" href="#">Deals</a>
+<a class="font-inter text-xs text-slate-500 uppercase tracking-widest hover:text-violet-300 transition-colors" href="#">About</a>
+<a class="font-inter text-xs text-slate-500 uppercase tracking-widest text-violet-400" href="#">FAQ</a>
+</div>
+<div class="flex flex-col gap-3">
+<span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Legal</span>
+<a class="font-inter text-xs text-slate-500 uppercase tracking-widest hover:text-violet-300 transition-colors" href="#">Privacy Policy</a>
+<a class="font-inter text-xs text-slate-500 uppercase tracking-widest hover:text-violet-300 transition-colors" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col gap-4">
+<span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Connect</span>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-slate-500 hover:text-violet-300 transition-colors cursor-pointer">rss_feed</span>
+<span class="material-symbols-outlined text-slate-500 hover:text-violet-300 transition-colors cursor-pointer">mail</span>
+<span class="material-symbols-outlined text-slate-500 hover:text-violet-300 transition-colors cursor-pointer">share</span>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

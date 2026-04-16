@@ -1,0 +1,51 @@
+{
+  "pages": {
+    "/_not-found/page": [
+      "static/chunks/webpack-d6bee014aae37f4d.js",
+      "static/chunks/4bd1b696-409494caf8c83275.js",
+      "static/chunks/255-249e483089def0f6.js",
+      "static/chunks/main-app-25fb94e70d9da285.js",
+      "static/chunks/app/_not-found/page-44767dd3228882bf.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack-d6bee014aae37f4d.js",
+      "static/chunks/4bd1b696-409494caf8c83275.js",
+      "static/chunks/255-249e483089def0f6.js",
+      "static/chunks/main-app-25fb94e70d9da285.js",
+      "static/css/b8b7efbc292bbc4e.css",
+      "static/chunks/619-f072ac750404f9da.js",
+      "static/chunks/app/layout-69cb1d35e43ce2ca.js"
+    ],
+    "/page": [
+      "static/chunks/webpack-d6bee014aae37f4d.js",
+      "static/chunks/4bd1b696-409494caf8c83275.js",
+      "static/chunks/255-249e483089def0f6.js",
+      "static/chunks/main-app-25fb94e70d9da285.js",
+      "static/chunks/619-f072ac750404f9da.js",
+      "static/chunks/app/page-c03e29e0f8a45b22.js"
+    ],
+    "/privacy-policy/page": [
+      "static/chunks/webpack-d6bee014aae37f4d.js",
+      "static/chunks/4bd1b696-409494caf8c83275.js",
+      "static/chunks/255-249e483089def0f6.js",
+      "static/chunks/main-app-25fb94e70d9da285.js",
+      "static/chunks/app/privacy-policy/page-74aa6445d33a6513.js"
+    ],
+    "/terms-of-service/page": [
+      "static/chunks/webpack-d6bee014aae37f4d.js",
+      "static/chunks/4bd1b696-409494caf8c83275.js",
+      "static/chunks/255-249e483089def0f6.js",
+      "static/chunks/main-app-25fb94e70d9da285.js",
+      "static/chunks/app/terms-of-service/page-74aa6445d33a6513.js"
+    ],
+    "/game/[id]/page": [
+      "static/chunks/webpack-d6bee014aae37f4d.js",
+      "static/chunks/4bd1b696-409494caf8c83275.js",
+      "static/chunks/255-249e483089def0f6.js",
+      "static/chunks/main-app-25fb94e70d9da285.js",
+      "static/chunks/619-f072ac750404f9da.js",
+      "static/chunks/852-11395c35ab5e17ca.js",
+      "static/chunks/app/game/[id]/page-c9e847cb0df1df12.js"
+    ]
+  }
+}
