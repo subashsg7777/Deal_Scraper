@@ -11,8 +11,12 @@ print("Retrieved Game List:\n", games)
 
 for game in games:
 
-    game_id = game.get("id")
+    game_id = game.get("id") or game.get("_id")
     game_name = game.get("name")
+
+    if not game_id:
+        print(f"Skipping game with missing id: {game_name}")
+        continue
 
     stores = game.get("stores", {})
     steam_url = stores.get("steam", "")
