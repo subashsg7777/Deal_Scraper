@@ -47,3 +47,9 @@ export async function getGameHistory(gameId, days = 90) {
     next: { revalidate: 21600 },
   })
 }
+
+export async function searchGames(term) {
+  return fetchJson(`/games?term=${encodeURIComponent(term)}`, {
+    next: { revalidate: 21600 },
+  })
+}

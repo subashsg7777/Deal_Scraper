@@ -1,1 +1,7 @@
-{}
+{
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
+  "/best_classic_games": "pages/best_classic_games.js",
+  "/best_games_2025": "pages/best_games_2025.js"
+}

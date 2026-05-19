@@ -3,6 +3,7 @@ import { TrendingDown, Activity } from 'lucide-react'
 import { getAllGames, getDeals } from './lib/api'
 import DealCard from './components/DealCard'
 import AdBanner from './components/AdBanner'
+import HomeHeroActions from './components/HomeHeroActions'
 
 export const revalidate = 21600
 
@@ -63,6 +64,8 @@ export default async function HomePage() {
               {visibleDeals.length} latest deals
             </span>
           </div>
+
+          <HomeHeroActions />
         </div>
       </section>
 
