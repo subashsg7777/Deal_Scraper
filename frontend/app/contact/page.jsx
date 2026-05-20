@@ -1,3 +1,5 @@
+'use client'
+
 export default function ContactPage() {
   return (
     <div className="pt-32 pb-24 px-6 md:px-12">

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, useLocation, Link } from 'react-router-dom'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import {
   ArrowLeft,
   RefreshCw,
@@ -124,8 +125,8 @@ function buildHistoryInsights(history) {
 }
 
 export default function Game() {
-  const { id } = useParams()
-  const location = useLocation()
+  const router = useRouter()
+  const id = typeof router.query?.id === 'string' ? router.query.id : null
 
   const [prices, setPrices]     = useState(null)
   const [history, setHistory]   = useState(null)
@@ -136,7 +137,7 @@ export default function Game() {
   const [days, setDays] = useState(90)
 
   // Optimistic name from search navigation state
-  const nameFromState = location.state?.gameName
+  const nameFromState = typeof router.query?.name === 'string' ? router.query.name : null
   const baseTitle = nameFromState ?? getGameEditorialCopy({ id }).title
 
   // Update page meta tags for SEO
@@ -202,6 +203,10 @@ export default function Game() {
   }, [prices, id, baseTitle])
 
   useEffect(() => {
+    if (!id) {
+      setPricesLoading(false)
+      return
+    }
     let cancelled = false
     setPricesLoading(true)
     setPricesError(null)
@@ -213,6 +218,10 @@ export default function Game() {
   }, [id])
 
   useEffect(() => {
+    if (!id) {
+      setHistLoading(false)
+      return
+    }
     let cancelled = false
     setHistLoading(true)
     setHistError(null)
@@ -257,6 +266,7 @@ export default function Game() {
   ]
 
   const reloadPrices = async () => {
+    if (!id) return
     setPricesLoading(true)
     setPricesError(null)
     try {
@@ -274,7 +284,7 @@ export default function Game() {
     <div className="min-h-screen max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       {/* Back */}
       <Link
-        to="/"
+        href="/"
         className="inline-flex items-center gap-1.5 text-[#9ca3af] hover:text-white text-sm font-medium transition-colors mb-8 group"
       >
         <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform" />
