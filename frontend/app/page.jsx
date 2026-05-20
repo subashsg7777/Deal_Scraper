@@ -1,8 +1,10 @@
+import { Fragment } from 'react'
 import Link from 'next/link'
 import { TrendingDown, Activity } from 'lucide-react'
 import { getAllGames, getDeals } from './lib/api'
 import DealCard from './components/DealCard'
 import AdBanner from './components/AdBanner'
+import HomeHeroActions from './components/HomeHeroActions'
 
 export const revalidate = 21600
 
@@ -63,6 +65,8 @@ export default async function HomePage() {
               {visibleDeals.length} latest deals
             </span>
           </div>
+
+          <HomeHeroActions />
         </div>
       </section>
 
@@ -97,12 +101,14 @@ export default async function HomePage() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 animate-fade-in">
             {visibleDeals.map((deal, idx) => (
-              <div key={deal.gameId ?? idx}>
+              <Fragment key={`${deal.gameId ?? 'deal'}-${deal.store ?? 'store'}-${deal.detectedAt ?? idx}`}>
                 <DealCard deal={deal} />
                 {(idx + 1) % 8 === 0 && (idx + 1) < visibleDeals.length ? (
-                  <AdBanner className="mt-4" />
+                  <div className="col-span-full mt-4">
+                    <AdBanner />
+                  </div>
                 ) : null}
-              </div>
+              </Fragment>
             ))}
           </div>
         )}

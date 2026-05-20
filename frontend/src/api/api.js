@@ -19,12 +19,18 @@ async function request(path) {
   return res.json();
 }
 
+function normalizeSearchResults(data) {
+  if (Array.isArray(data)) return data;
+  if (Array.isArray(data?.result)) return data.result;
+  return [];
+}
+
 export function getDeals() {
   return request('/deals');
 }
 
 export function searchGames(term) {
-  return request(`/games?term=${encodeURIComponent(term)}`);
+  return request(`/games?term=${encodeURIComponent(term)}`).then(normalizeSearchResults);
 }
 
 export function getGamePrices(gameId) {

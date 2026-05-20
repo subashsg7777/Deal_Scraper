@@ -23,13 +23,16 @@ export default function Navbar() {
   const isActive = (path) => pathname === path
 
   const navLinks = [
-    { name: 'Deals', path: '/' },
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+    { name: 'FAQ', path: '/faq' },
+    { name: 'Contact', path: '/contact' },
   ]
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-slate-900/60 backdrop-blur-xl border-b border-slate-700/15 shadow-2xl shadow-slate-950/50' : 'bg-transparent'}`}>
-      <div className="flex items-center justify-between px-8 py-4 max-w-screen-2xl mx-auto font-inter antialiased text-sm font-medium tracking-wide">
-        <Link href="/" className="text-2xl font-bold tracking-tighter bg-gradient-to-br from-violet-300 to-blue-500 bg-clip-text text-transparent group hover:scale-105 transition-transform duration-200">
+    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-slate-900/60 backdrop-blur-xl border-b border-slate-700/15 shadow-2xl shadow-slate-950/50' : 'bg-slate-900/60 backdrop-blur-xl border-b border-slate-700/15 shadow-2xl shadow-slate-950/50'}`}>
+      <div className="flex items-center justify-between px-6 sm:px-8 h-20 max-w-screen-2xl mx-auto font-medium tracking-wide">
+        <Link href="/" className="text-2xl font-bold tracking-tighter bg-gradient-to-br from-violet-300 to-blue-500 bg-clip-text text-transparent transition-transform duration-200 hover:scale-105">
           DealScraper
         </Link>
 
@@ -51,16 +54,8 @@ export default function Navbar() {
 
         <div className="flex items-center gap-4">
           <button
-            onClick={() => router.push('/')}
-            className="p-2 hover:bg-slate-800/40 rounded-lg transition-all active:scale-95 duration-200"
-            aria-label="Go to deals"
-          >
-            <span className="material-symbols-outlined text-violet-400">search</span>
-          </button>
-
-          <button
             onClick={() => setMenuOpen((v) => !v)}
-            className="md:hidden p-2 hover:bg-slate-800/40 rounded-lg transition-all active:scale-95 duration-200 text-violet-400"
+            className="md:hidden rounded-lg p-2 text-violet-400 transition-all duration-200 hover:bg-slate-800/40 active:scale-95"
             aria-label="Toggle menu"
           >
             <span className="material-symbols-outlined">{menuOpen ? 'close' : 'menu'}</span>
