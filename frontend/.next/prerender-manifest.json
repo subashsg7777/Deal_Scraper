@@ -1,11 +1,1 @@
-{
-  "version": 4,
-  "routes": {},
-  "dynamicRoutes": {},
-  "notFoundRoutes": [],
-  "preview": {
-    "previewModeId": "7c192891557eccc441e0894e8470cfd7",
-    "previewModeSigningKey": "de7b6851c34a4714c3b4a80d255c13b1c99fa446d2248a7437f67e1544a5da82",
-    "previewModeEncryptionKey": "41874e619981e8a1f74aac6e4dfa7ca87a5884992f59113e6fd399ec264add9f"
-  }
-}
+{"version":4,"routes":{"/game/69b52f0660f9e6d7a418331e":{},"/game/69b52f0660f9e6d7a4183321":{},"/game/69b52f0660f9e6d7a4183319":{},"/game/69b52f0660f9e6d7a418331f":{},"/game/69b52f0660f9e6d7a4183322":{},"/game/69b52f0660f9e6d7a4183320":{},"/game/69b52f0660f9e6d7a418331c":{},"/game/69b52f0660f9e6d7a418331d":{},"/game/69b52f0660f9e6d7a418331b":{},"/game/69b52f0660f9e6d7a4183327":{},"/game/69b52f0660f9e6d7a4183316":{},"/game/69b52f0660f9e6d7a4183323":{},"/game/69b52f0660f9e6d7a4183326":{},"/game/69b52f0660f9e6d7a4183315":{},"/game/69b52f0660f9e6d7a4183318":{},"/game/69b52f0660f9e6d7a418331a":{},"/game/69b52f0660f9e6d7a4183324":{},"/game/69b52f0660f9e6d7a4183317":{},"/game/69b52f0660f9e6d7a4183314":{},"/game/69b52f0660f9e6d7a4183325":{},"/game/69b7713923c3b3b3ff8a4ca2":{}},"dynamicRoutes":{"/game/[id]":{"dataRoute":null,"dataRouteRegex":null,"fallback":null,"fallbackRevalidate":false,"fallbackSourceRoute":"/game/[id]","routeRegex":"^\\/game\\/([^/]+?)(?:\\/)?$","allowHeader":[]}},"notFoundRoutes":[],"preview":{"previewModeId":"635097fd02ac0d97075a08f75464f8ee","previewModeSigningKey":"7c69825a0e9ba5310e00e883b7cfc6297db8118f44cb2bade85b0c80608c1a85","previewModeEncryptionKey":"da8277f7a4502d2fa25683c09bda9cbc7e717d20f24c2cbba27f7368480d3293"}}
