@@ -20,13 +20,25 @@ export default function Navbar() {
     setMenuOpen(false)
   }, [pathname])
 
-  const isActive = (path) => pathname === path
+  const isActive = (path) => {
+    if (path === '/blogs') {
+      const legacyBlogPaths = new Set([
+        '/best_classic_games',
+        '/best_games_2025',
+        '/steam_sales',
+        '/steam_sales_article',
+      ])
+      return pathname === '/blogs' || pathname.startsWith('/articles/') || legacyBlogPaths.has(pathname)
+    }
+    return pathname === path
+  }
 
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
     { name: 'FAQ', path: '/faq' },
     { name: 'Contact', path: '/contact' },
+    { name: 'Blogs', path: '/blogs' },
   ]
 
   return (

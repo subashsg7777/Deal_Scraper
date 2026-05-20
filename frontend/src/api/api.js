@@ -1,7 +1,15 @@
-const rawBaseUrl = (import.meta.env.VITE_API_BASE_URL || '').trim();
+const viteEnv = typeof import.meta !== 'undefined' && import.meta.env ? import.meta.env : {};
+const nodeEnv = typeof process !== 'undefined' && process.env ? process.env : {};
 
-// In production default to Render backend; allow override via VITE_API_BASE_URL.
-const defaultOrigin = import.meta.env.PROD
+const rawBaseUrl = (
+  viteEnv.VITE_API_BASE_URL ||
+  nodeEnv.NEXT_PUBLIC_API_BASE_URL ||
+  nodeEnv.API_URL ||
+  ''
+).trim();
+
+// In production default to Render backend; allow override via env vars.
+const defaultOrigin = (viteEnv.PROD || nodeEnv.NODE_ENV === 'production')
   ? 'https://deal-scraper-1q5s.onrender.com'
   : 'http://localhost:8080';
 

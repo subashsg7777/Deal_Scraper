@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { TrendingDown, Zap, ArrowRight, RefreshCw, Activity } from 'lucide-react'
 import { getDeals } from '../api/api'
 import DealCard from '../components/DealCard'
@@ -119,7 +119,7 @@ export default function Home() {
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
-              to="/search"
+              href="/search"
               className="inline-flex items-center gap-2 bg-gradient-to-r from-[#6366f1] to-[#4f46e5] text-white px-8 py-3.5 rounded-xl font-semibold shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 w-full sm:w-auto justify-center"
             >
               Search Games
@@ -158,29 +158,25 @@ export default function Home() {
           <h2 className="text-2xl font-black text-[#e5e7eb] mb-4">🔥 Popular Games</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <Link
-              to="/game/69b52f0660f9e6d7a4183316"
-              state={{ gameName: 'Cyberpunk 2077' }}
+              href="/game/69b52f0660f9e6d7a4183316?name=Cyberpunk%202077"
               className="rounded-xl border border-[#1d9bf0]/30 bg-[#1d9bf0]/10 px-4 py-3 text-[#dbeafe] font-semibold hover:bg-[#1d9bf0]/20 hover:border-[#1d9bf0]/50 transition"
             >
               Cyberpunk 2077
             </Link>
             <Link
-              to="/game/69b7713923c3b3b3ff8a4ca2"
-              state={{ gameName: 'Elden Ring' }}
+              href="/game/69b7713923c3b3b3ff8a4ca2?name=Elden%20Ring"
               className="rounded-xl border border-[#22c55e]/30 bg-[#22c55e]/10 px-4 py-3 text-[#dcfce7] font-semibold hover:bg-[#22c55e]/20 hover:border-[#22c55e]/50 transition"
             >
               Elden Ring
             </Link>
             <Link
-              to="/game/69b52f0660f9e6d7a4183327"
-              state={{ gameName: 'Red Dead Redemption 2' }}
+              href="/game/69b52f0660f9e6d7a4183327?name=Red%20Dead%20Redemption%202"
               className="rounded-xl border border-[#a78bfa]/30 bg-[#8b5cf6]/10 px-4 py-3 text-[#ede9fe] font-semibold hover:bg-[#8b5cf6]/20 hover:border-[#a78bfa]/50 transition"
             >
               Red Dead Redemption 2
             </Link>
             <Link
-              to="/game/69b52f0660f9e6d7a4183326"
-              state={{ gameName: 'Hogwarts Legacy' }}
+              href="/game/69b52f0660f9e6d7a4183326?name=Hogwarts%20Legacy"
               className="rounded-xl border border-[#f59e0b]/30 bg-[#f59e0b]/10 px-4 py-3 text-[#fef3c7] font-semibold hover:bg-[#f59e0b]/20 hover:border-[#f59e0b]/50 transition"
             >
               Hogwarts Legacy
@@ -205,7 +201,7 @@ export default function Home() {
             </div>
           </div>
           <Link
-            to="/search"
+            href="/search"
             className="hidden sm:inline-flex items-center gap-1.5 text-[#6366f1] hover:text-indigo-300 text-sm font-medium transition-colors"
           >
             Browse all
