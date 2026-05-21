@@ -1,10 +1,23 @@
 import './globals.css'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import { SITE_URL } from './lib/site'
 
 export const metadata = {
-  title: 'DealScraper - Track Game Prices on Steam, Epic, Xbox | Best Deals',
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: 'DealScraper - Track Game Prices on Steam, Epic, Xbox | Best Deals',
+    template: '%s | DealScraper',
+  },
   description: 'Compare game prices across Steam, Epic Games, and Xbox. Find the best deals, track price history, and get notifications on price drops.',
+  applicationName: 'DealScraper',
+  openGraph: {
+    siteName: 'DealScraper',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
 }
 
 export default function RootLayout({ children }) {

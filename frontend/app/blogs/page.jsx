@@ -1,54 +1,13 @@
-import fs from 'node:fs/promises'
-import path from 'node:path'
 import Link from 'next/link'
-import { BookOpen, ArrowRight } from 'lucide-react'
-
-const BLOG_CATALOG = [
-  {
-    slug: 'best_classic_games',
-    href: '/best_classic_games',
-    title: 'The Best Classic Games Of All Time',
-    sourceFile: 'src/pages/best_classic_games.jsx',
-  },
-  {
-    slug: 'best_games_2025',
-    href: '/best_games_2025',
-    title: 'Top 10 Games That Defined 2025',
-    sourceFile: 'src/pages/best_games_2025.jsx',
-  },
-  {
-    slug: 'steam_sales',
-    href: '/steam_sales',
-    title: 'Steam Sale Calendar 2026',
-    sourceFile: 'src/pages/steam_sales.jsx',
-  },
-  {
-    slug: 'steam_sales_article',
-    href: '/steam_sales_article',
-    title: 'Steam Summer Sale Guide',
-    sourceFile: 'src/pages/steam_sales_article.jsx',
-  },
-]
-
-async function getBlogs() {
-  const blogs = await Promise.all(
-    BLOG_CATALOG.map(async (blog) => {
-      const fullPath = path.join(process.cwd(), blog.sourceFile)
-      try {
-        await fs.access(fullPath)
-        return blog
-      } catch {
-        return null
-      }
-    }),
-  )
-
-  return blogs.filter(Boolean)
-}
+import { ArrowRight, BookOpen, CalendarDays, Clock3 } from 'lucide-react'
+import { getBlogs } from '../lib/blogs'
 
 export const metadata = {
   title: 'Blogs | DealScraper',
   description: 'Browse all available DealScraper blog posts and open any article.',
+  alternates: {
+    canonical: '/blogs',
+  },
 }
 
 export default async function BlogsPage() {
@@ -75,15 +34,25 @@ export default async function BlogsPage() {
           {blogs.map((blog) => (
             <Link
               key={blog.slug}
-              href={blog.href}
+              href={`/blog/${blog.slug}`}
               className="group rounded-2xl border border-white/10 bg-[#111827] p-5 hover:border-[#6366f1]/40 hover:bg-[#6366f1]/5 transition-all duration-200"
             >
               <div className="flex items-start justify-between gap-3">
-                <div>
+                <div className="min-w-0">
                   <p className="text-[#e5e7eb] font-semibold text-base mb-1 group-hover:text-white transition-colors">
                     {blog.title}
                   </p>
-                  <p className="text-[#6b7280] text-xs">{blog.href}</p>
+                  <p className="text-[#9ca3af] text-sm leading-6 line-clamp-2">{blog.description}</p>
+                  <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-[#6b7280]">
+                    <span className="inline-flex items-center gap-1.5">
+                      <CalendarDays size={12} />
+                      {new Date(blog.publishedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+                    </span>
+                    <span className="inline-flex items-center gap-1.5">
+                      <Clock3 size={12} />
+                      {blog.readTime}
+                    </span>
+                  </div>
                 </div>
                 <ArrowRight size={16} className="text-[#6b7280] group-hover:text-[#6366f1] group-hover:translate-x-0.5 transition-all" />
               </div>

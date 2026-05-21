@@ -28,7 +28,7 @@ export default function Navbar() {
         '/steam_sales',
         '/steam_sales_article',
       ])
-      return pathname === '/blogs' || pathname.startsWith('/articles/') || legacyBlogPaths.has(pathname)
+      return pathname === '/blogs' || pathname.startsWith('/blog/') || pathname.startsWith('/articles/') || legacyBlogPaths.has(pathname)
     }
     return pathname === path
   }

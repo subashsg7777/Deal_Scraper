@@ -161,7 +161,7 @@ export default function Game() {
     
     if (ogTitle) ogTitle.content = `Compare ${displayName} Prices`
     if (ogDescription) ogDescription.content = `Find the best price for ${displayName} across all major gaming stores.`
-    if (canonical) canonical.href = `https://deal-scraper.vercel.app/game/${id}`
+    if (canonical) canonical.href = `https://deal-scraper.tech/game/${id}`
     
     // Add JSON-LD structured data
     const existingScript = document.getElementById('game-schema')
@@ -171,7 +171,7 @@ export default function Game() {
       "@context": "https://schema.org",
       "@type": "Product",
       "name": displayName,
-      "url": `https://deal-scraper.vercel.app/game/${id}`,
+      "url": `https://deal-scraper.tech/game/${id}`,
       "offers": storeResults.map(item => ({
         "@type": "Offer",
         "priceCurrency": prices?.currency || "USD",

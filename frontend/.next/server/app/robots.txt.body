@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Host: https://deal-scraper.tech
+Sitemap: https://deal-scraper.tech/sitemap.xml

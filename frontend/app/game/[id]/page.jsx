@@ -4,10 +4,40 @@ import StorePriceCard from '../../components/StorePriceCard'
 import PriceChartClient from '../../components/PriceChartClient'
 import AdBanner from '../../components/AdBanner'
 import { getAllGames, getGame, getGameHistory, getGamePrices } from '../../lib/api'
+import { SITE_URL } from '../../lib/site'
 import { getGameEditorialCopy } from '../../../src/content/gameEditorialCopy'
 
 export const revalidate = 21600
 export const dynamicParams = true
+
+export async function generateMetadata({ params, searchParams }) {
+  const id = params.id
+  const nameFromQuery = typeof searchParams?.name === 'string' ? searchParams.name : null
+
+  const [gameInfo, prices] = await Promise.all([
+    getGame(id).catch(() => null),
+    getGamePrices(id).catch(() => null),
+  ])
+
+  const fallback = getGameEditorialCopy({ id, title: nameFromQuery || undefined })
+  const title = gameInfo?.name?.trim() || prices?.gameName?.trim() || nameFromQuery || fallback.title
+  const description = gameInfo?.description?.trim() || prices?.description?.trim() || fallback.summary
+
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: `${title} Prices`,
+    description,
+    alternates: {
+      canonical: `/game/${id}`,
+    },
+    openGraph: {
+      title: `${title} Prices`,
+      description,
+      url: `/game/${id}`,
+      type: 'website',
+    },
+  }
+}
 
 const DAY_OPTIONS = [7, 30, 90]
 const STORES = ['steam', 'epic', 'xbox']

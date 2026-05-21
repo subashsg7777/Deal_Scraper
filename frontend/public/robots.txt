@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://deal-scraper.vercel.app/sitemap.xml

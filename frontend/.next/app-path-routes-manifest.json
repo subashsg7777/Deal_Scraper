@@ -1,13 +1,17 @@
 {
   "/api/search/route": "/api/search",
+  "/robots.txt/route": "/robots.txt",
+  "/sitemap.xml/route": "/sitemap.xml",
   "/_not-found/page": "/_not-found",
   "/about/page": "/about",
+  "/blog/page": "/blog",
   "/contact/page": "/contact",
   "/faq/page": "/faq",
   "/search/page": "/search",
   "/blogs/page": "/blogs",
-  "/privacy-policy/page": "/privacy-policy",
+  "/blog/[slug]/page": "/blog/[slug]",
   "/terms-of-service/page": "/terms-of-service",
+  "/privacy-policy/page": "/privacy-policy",
   "/page": "/",
   "/game/[id]/page": "/game/[id]"
 }
