@@ -1,0 +1,13 @@
+{
+  "/api/search/route": "/api/search",
+  "/_not-found/page": "/_not-found",
+  "/about/page": "/about",
+  "/contact/page": "/contact",
+  "/faq/page": "/faq",
+  "/search/page": "/search",
+  "/blogs/page": "/blogs",
+  "/privacy-policy/page": "/privacy-policy",
+  "/terms-of-service/page": "/terms-of-service",
+  "/page": "/",
+  "/game/[id]/page": "/game/[id]"
+}
