@@ -1,1 +1,22 @@
-globalThis.__BUILD_MANIFEST={polyfillFiles:["static/chunks/polyfills-42372ed130431b0a.js"],devFiles:[],ampDevFiles:[],lowPriorityFiles:[],rootMainFiles:["static/chunks/webpack-3fcacae817f3ffab.js","static/chunks/4bd1b696-409494caf8c83275.js","static/chunks/255-249e483089def0f6.js","static/chunks/main-app-ad8f8474e941f644.js"],rootMainFilesTree:{},pages:{"/Game":["static/chunks/webpack-3fcacae817f3ffab.js","static/chunks/framework-1ce91eb6f9ecda85.js","static/chunks/main-0bd694b0d0f66d4b.js","static/chunks/230-b0a1c5d6455770e4.js","static/chunks/928-101bcdfb830aa7fd.js","static/chunks/pages/Game-17fe22df4087db47.js"],"/Home":["static/chunks/webpack-3fcacae817f3ffab.js","static/chunks/framework-1ce91eb6f9ecda85.js","static/chunks/main-0bd694b0d0f66d4b.js","static/chunks/5330eab6-50cf4c222a31d02f.js","static/chunks/230-b0a1c5d6455770e4.js","static/chunks/986-3b3e80853f9317fa.js","static/chunks/pages/Home-808522a69db87f61.js"],"/PrivacyPolicy":["static/chunks/webpack-3fcacae817f3ffab.js","static/chunks/framework-1ce91eb6f9ecda85.js","static/chunks/main-0bd694b0d0f66d4b.js","static/chunks/pages/PrivacyPolicy-61593133ee2779fd.js"],"/TermsOfService":["static/chunks/webpack-3fcacae817f3ffab.js","static/chunks/framework-1ce91eb6f9ecda85.js","static/chunks/main-0bd694b0d0f66d4b.js","static/chunks/pages/TermsOfService-1daf7e42de39ef0e.js"],"/_app":["static/chunks/webpack-3fcacae817f3ffab.js","static/chunks/framework-1ce91eb6f9ecda85.js","static/chunks/main-0bd694b0d0f66d4b.js","static/css/b1773db59fd27392.css","static/chunks/pages/_app-2b272ca46008a4f8.js"],"/_error":["static/chunks/webpack-3fcacae817f3ffab.js","static/chunks/framework-1ce91eb6f9ecda85.js","static/chunks/main-0bd694b0d0f66d4b.js","static/chunks/pages/_error-022e4ac7bbb9914f.js"],"/best_classic_games":["static/chunks/webpack-3fcacae817f3ffab.js","static/chunks/framework-1ce91eb6f9ecda85.js","static/chunks/main-0bd694b0d0f66d4b.js","static/chunks/230-b0a1c5d6455770e4.js","static/chunks/pages/best_classic_games-d7d5dea43cd8a1ee.js"],"/best_games_2025":["static/chunks/webpack-3fcacae817f3ffab.js","static/chunks/framework-1ce91eb6f9ecda85.js","static/chunks/main-0bd694b0d0f66d4b.js","static/chunks/230-b0a1c5d6455770e4.js","static/chunks/pages/best_games_2025-95163a1f850fe185.js"],"/steam_sales":["static/chunks/webpack-3fcacae817f3ffab.js","static/chunks/framework-1ce91eb6f9ecda85.js","static/chunks/main-0bd694b0d0f66d4b.js","static/chunks/230-b0a1c5d6455770e4.js","static/chunks/pages/steam_sales-b157c4d7c8a2442e.js"],"/steam_sales_article":["static/chunks/webpack-3fcacae817f3ffab.js","static/chunks/framework-1ce91eb6f9ecda85.js","static/chunks/main-0bd694b0d0f66d4b.js","static/chunks/230-b0a1c5d6455770e4.js","static/chunks/pages/steam_sales_article-ee42ba5a8ff15833.js"]},ampFirstPages:[]},globalThis.__BUILD_MANIFEST.lowPriorityFiles=["/static/"+process.env.__NEXT_BUILD_ID+"/_buildManifest.js",,"/static/"+process.env.__NEXT_BUILD_ID+"/_ssgManifest.js"];
+globalThis.__BUILD_MANIFEST = {
+  "polyfillFiles": [
+    "static/chunks/polyfills.js"
+  ],
+  "devFiles": [],
+  "ampDevFiles": [],
+  "lowPriorityFiles": [],
+  "rootMainFiles": [
+    "static/chunks/webpack.js",
+    "static/chunks/main-app.js"
+  ],
+  "rootMainFilesTree": {},
+  "pages": {
+    "/_app": []
+  },
+  "ampFirstPages": []
+};
+globalThis.__BUILD_MANIFEST.lowPriorityFiles = [
+"/static/" + process.env.__NEXT_BUILD_ID + "/_buildManifest.js",
+,"/static/" + process.env.__NEXT_BUILD_ID + "/_ssgManifest.js",
+
+];

@@ -1,14 +1,1 @@
-{
-  "/_app": "pages/_app.js",
-  "/_error": "pages/_error.js",
-  "/Game": "pages/Game.html",
-  "/Home": "pages/Home.html",
-  "/PrivacyPolicy": "pages/PrivacyPolicy.html",
-  "/TermsOfService": "pages/TermsOfService.html",
-  "/best_classic_games": "pages/best_classic_games.html",
-  "/best_games_2025": "pages/best_games_2025.html",
-  "/steam_sales": "pages/steam_sales.html",
-  "/steam_sales_article": "pages/steam_sales_article.html",
-  "/_document": "pages/_document.js",
-  "/404": "pages/404.html"
-}
+{}

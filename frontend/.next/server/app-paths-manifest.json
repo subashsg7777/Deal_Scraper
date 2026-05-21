@@ -1,13 +1,4 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/api/search/route": "app/api/search/route.js",
-  "/about/page": "app/about/page.js",
-  "/contact/page": "app/contact/page.js",
-  "/faq/page": "app/faq/page.js",
-  "/search/page": "app/search/page.js",
-  "/blogs/page": "app/blogs/page.js",
-  "/privacy-policy/page": "app/privacy-policy/page.js",
-  "/terms-of-service/page": "app/terms-of-service/page.js",
-  "/page": "app/page.js",
-  "/game/[id]/page": "app/game/[id]/page.js"
+  "/game/[id]/page": "app/game/[id]/page.js",
+  "/page": "app/page.js"
 }
