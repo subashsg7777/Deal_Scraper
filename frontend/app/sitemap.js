@@ -1,6 +1,7 @@
 import { getAllGames } from './lib/api.js'
 import { getBlogs } from './lib/blogs.js'
 import { SITE_URL } from './lib/site.js'
+import { buildAbsoluteUrl, buildGamePath, getGameTitle } from './lib/routes'
 
 export const revalidate = 21600
 
@@ -14,10 +15,6 @@ const staticPages = [
   { url: '/terms-of-service', changeFrequency: 'yearly', priority: 0.3 },
 ]
 
-function toAbsoluteUrl(pathname) {
-  return new URL(pathname, SITE_URL).toString()
-}
-
 function normalizeDate(value, fallback = new Date()) {
   const date = value ? new Date(value) : fallback
   return Number.isNaN(date.getTime()) ? fallback : date
@@ -29,13 +26,13 @@ export default async function sitemap() {
 
   const entries = [
     ...staticPages.map((page) => ({
-      url: toAbsoluteUrl(page.url),
+      url: buildAbsoluteUrl(page.url),
       lastModified: new Date(),
       changeFrequency: page.changeFrequency,
       priority: page.priority,
     })),
     ...blogs.map((blog) => ({
-      url: toAbsoluteUrl(`/blog/${blog.slug}`),
+      url: buildAbsoluteUrl(`/blog/${blog.slug}`),
       lastModified: normalizeDate(blog.updatedAt),
       changeFrequency: 'weekly',
       priority: 0.75,
@@ -49,7 +46,7 @@ export default async function sitemap() {
       const gameId = String(game?.id || game?._id || game?.gameId || '').trim()
       if (!gameId) continue
 
-      const url = toAbsoluteUrl(`/game/${gameId}`)
+      const url = buildAbsoluteUrl(buildGamePath(gameId, getGameTitle(game)))
       if (seen.has(url)) continue
 
       seen.add(url)

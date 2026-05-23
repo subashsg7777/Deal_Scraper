@@ -6,6 +6,7 @@ import { ChevronRight, Gamepad2, Search as SearchIcon, Sparkles } from 'lucide-r
 import SearchBar from '../../src/components/SearchBar'
 import LoadingSpinner from '../../src/components/LoadingSpinner'
 import AdBanner from '../components/AdBanner'
+import { buildGamePath } from '../lib/routes'
 
 const MIN_SEARCH_LENGTH = 4
 
@@ -139,7 +140,7 @@ export default function SearchPage() {
             {results.map((game, index) => (
               <div key={gameId(game) ?? `${gameName(game)}-${index}`}>
                 <Link
-                  href={`/game/${gameId(game)}?name=${encodeURIComponent(gameName(game))}`}
+                  href={buildGamePath(gameId(game), gameName(game))}
                   className="flex items-center justify-between bg-[#111827] border border-white/5 rounded-xl px-5 py-4 hover:border-[#6366f1]/30 hover:bg-[#6366f1]/5 transition-all duration-200 group"
                 >
                   <div className="flex items-center gap-3 min-w-0">

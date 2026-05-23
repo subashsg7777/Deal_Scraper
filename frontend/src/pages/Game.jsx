@@ -15,6 +15,7 @@ import PriceChart from '../components/PriceChart'
 import LoadingSpinner from '../components/LoadingSpinner'
 import AdBanner from '../components/AdBanner'
 import { getGameEditorialCopy } from '../content/gameEditorialCopy'
+import { buildGamePath } from '../../app/lib/routes'
 
 const DAY_OPTIONS = [7, 30, 90]
 const STORES = ['steam', 'epic', 'xbox']
@@ -136,9 +137,7 @@ export default function Game() {
   const [histError, setHistError]         = useState(null)
   const [days, setDays] = useState(90)
 
-  // Optimistic name from search navigation state
-  const nameFromState = typeof router.query?.name === 'string' ? router.query.name : null
-  const baseTitle = nameFromState ?? getGameEditorialCopy({ id }).title
+  const baseTitle = getGameEditorialCopy({ id }).title
 
   // Update page meta tags for SEO
   useEffect(() => {
@@ -161,7 +160,7 @@ export default function Game() {
     
     if (ogTitle) ogTitle.content = `Compare ${displayName} Prices`
     if (ogDescription) ogDescription.content = `Find the best price for ${displayName} across all major gaming stores.`
-    if (canonical) canonical.href = `https://deal-scraper.tech/game/${id}`
+    if (canonical) canonical.href = buildGamePath(id, displayName)
     
     // Add JSON-LD structured data
     const existingScript = document.getElementById('game-schema')
@@ -171,7 +170,7 @@ export default function Game() {
       "@context": "https://schema.org",
       "@type": "Product",
       "name": displayName,
-      "url": `https://deal-scraper.tech/game/${id}`,
+      "url": buildGamePath(id, displayName),
       "offers": storeResults.map(item => ({
         "@type": "Offer",
         "priceCurrency": prices?.currency || "USD",
