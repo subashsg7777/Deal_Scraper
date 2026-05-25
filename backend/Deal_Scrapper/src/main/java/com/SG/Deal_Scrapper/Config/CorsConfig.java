@@ -14,7 +14,7 @@ public class CorsConfig implements WebMvcConfigurer {
     private final String[] allowedOriginPatterns;
 
     public CorsConfig(
-            @Value("${app.cors.allowed-origins:http://localhost:5173,http://127.0.0.1:5173,https://deal-scraper.vercel.app}")
+            @Value("${app.cors.allowed-origins:http://localhost:3000,http://127.0.0.1:5173,https://deal-scraper.vercel.app}")
             String[] allowedOrigins,
             @Value("${app.cors.allowed-origin-patterns:https://*.vercel.app}")
             String[] allowedOriginPatterns

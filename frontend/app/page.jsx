@@ -1,8 +1,11 @@
+import { Fragment } from 'react'
 import Link from 'next/link'
 import { TrendingDown, Activity } from 'lucide-react'
 import { getAllGames, getDeals } from './lib/api'
+import { buildGamePath } from './lib/routes'
 import DealCard from './components/DealCard'
 import AdBanner from './components/AdBanner'
+import HomeHeroActions from './components/HomeHeroActions'
 
 export const revalidate = 21600
 
@@ -63,6 +66,8 @@ export default async function HomePage() {
               {visibleDeals.length} latest deals
             </span>
           </div>
+
+          <HomeHeroActions />
         </div>
       </section>
 
@@ -70,10 +75,10 @@ export default async function HomePage() {
         <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 sm:p-7">
           <h2 className="text-2xl font-black text-[#e5e7eb] mb-4">Popular Games</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <Link href="/game/69b52f0660f9e6d7a4183316?name=Cyberpunk%202077" className="rounded-xl border border-[#1d9bf0]/30 bg-[#1d9bf0]/10 px-4 py-3 text-[#dbeafe] font-semibold hover:bg-[#1d9bf0]/20 hover:border-[#1d9bf0]/50 transition">Cyberpunk 2077</Link>
-            <Link href="/game/69b7713923c3b3b3ff8a4ca2?name=Elden%20Ring" className="rounded-xl border border-[#22c55e]/30 bg-[#22c55e]/10 px-4 py-3 text-[#dcfce7] font-semibold hover:bg-[#22c55e]/20 hover:border-[#22c55e]/50 transition">Elden Ring</Link>
-            <Link href="/game/69b52f0660f9e6d7a4183327?name=Red%20Dead%20Redemption%202" className="rounded-xl border border-[#a78bfa]/30 bg-[#8b5cf6]/10 px-4 py-3 text-[#ede9fe] font-semibold hover:bg-[#8b5cf6]/20 hover:border-[#a78bfa]/50 transition">Red Dead Redemption 2</Link>
-            <Link href="/game/69b52f0660f9e6d7a4183326?name=Hogwarts%20Legacy" className="rounded-xl border border-[#f59e0b]/30 bg-[#f59e0b]/10 px-4 py-3 text-[#fef3c7] font-semibold hover:bg-[#f59e0b]/20 hover:border-[#f59e0b]/50 transition">Hogwarts Legacy</Link>
+            <Link href={buildGamePath('69b52f0660f9e6d7a4183316', 'Cyberpunk 2077')} className="rounded-xl border border-[#1d9bf0]/30 bg-[#1d9bf0]/10 px-4 py-3 text-[#dbeafe] font-semibold hover:bg-[#1d9bf0]/20 hover:border-[#1d9bf0]/50 transition">Cyberpunk 2077</Link>
+            <Link href={buildGamePath('69b7713923c3b3b3ff8a4ca2', 'Elden Ring')} className="rounded-xl border border-[#22c55e]/30 bg-[#22c55e]/10 px-4 py-3 text-[#dcfce7] font-semibold hover:bg-[#22c55e]/20 hover:border-[#22c55e]/50 transition">Elden Ring</Link>
+            <Link href={buildGamePath('69b52f0660f9e6d7a4183327', 'Red Dead Redemption 2')} className="rounded-xl border border-[#a78bfa]/30 bg-[#8b5cf6]/10 px-4 py-3 text-[#ede9fe] font-semibold hover:bg-[#8b5cf6]/20 hover:border-[#a78bfa]/50 transition">Red Dead Redemption 2</Link>
+            <Link href={buildGamePath('69b52f0660f9e6d7a4183326', 'Hogwarts Legacy')} className="rounded-xl border border-[#f59e0b]/30 bg-[#f59e0b]/10 px-4 py-3 text-[#fef3c7] font-semibold hover:bg-[#f59e0b]/20 hover:border-[#f59e0b]/50 transition">Hogwarts Legacy</Link>
           </div>
         </div>
       </section>
@@ -97,12 +102,14 @@ export default async function HomePage() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 animate-fade-in">
             {visibleDeals.map((deal, idx) => (
-              <div key={deal.gameId ?? idx}>
+              <Fragment key={`${deal.gameId ?? 'deal'}-${deal.store ?? 'store'}-${deal.detectedAt ?? idx}`}>
                 <DealCard deal={deal} />
                 {(idx + 1) % 8 === 0 && (idx + 1) < visibleDeals.length ? (
-                  <AdBanner className="mt-4" />
+                  <div className="col-span-full mt-4">
+                    <AdBanner />
+                  </div>
                 ) : null}
-              </div>
+              </Fragment>
             ))}
           </div>
         )}

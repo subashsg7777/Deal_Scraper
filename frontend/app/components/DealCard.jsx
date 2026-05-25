@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { TrendingDown, ArrowUpRight } from 'lucide-react'
+import { buildGamePath } from '../lib/routes'
 
 const STORE_STYLES = {
   steam: {
@@ -45,7 +46,7 @@ export default function DealCard({ deal }) {
   }
 
   return (
-    <Link href={`/game/${gameId}?name=${encodeURIComponent(gameName || '')}`} className="block group">
+    <Link href={buildGamePath(gameId, gameName)} className="block group">
       <article
         className={`relative bg-[#111827] border border-white/5 rounded-2xl p-5 overflow-hidden
           transition-all duration-300

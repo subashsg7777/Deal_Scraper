@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, useLocation, Link } from 'react-router-dom'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import {
   ArrowLeft,
   RefreshCw,
@@ -14,6 +15,7 @@ import PriceChart from '../components/PriceChart'
 import LoadingSpinner from '../components/LoadingSpinner'
 import AdBanner from '../components/AdBanner'
 import { getGameEditorialCopy } from '../content/gameEditorialCopy'
+import { buildGamePath } from '../../app/lib/routes'
 
 const DAY_OPTIONS = [7, 30, 90]
 const STORES = ['steam', 'epic', 'xbox']
@@ -124,8 +126,8 @@ function buildHistoryInsights(history) {
 }
 
 export default function Game() {
-  const { id } = useParams()
-  const location = useLocation()
+  const router = useRouter()
+  const id = typeof router.query?.id === 'string' ? router.query.id : null
 
   const [prices, setPrices]     = useState(null)
   const [history, setHistory]   = useState(null)
@@ -135,9 +137,7 @@ export default function Game() {
   const [histError, setHistError]         = useState(null)
   const [days, setDays] = useState(90)
 
-  // Optimistic name from search navigation state
-  const nameFromState = location.state?.gameName
-  const baseTitle = nameFromState ?? getGameEditorialCopy({ id }).title
+  const baseTitle = getGameEditorialCopy({ id }).title
 
   // Update page meta tags for SEO
   useEffect(() => {
@@ -160,7 +160,7 @@ export default function Game() {
     
     if (ogTitle) ogTitle.content = `Compare ${displayName} Prices`
     if (ogDescription) ogDescription.content = `Find the best price for ${displayName} across all major gaming stores.`
-    if (canonical) canonical.href = `https://deal-scraper.vercel.app/game/${id}`
+    if (canonical) canonical.href = buildGamePath(id, displayName)
     
     // Add JSON-LD structured data
     const existingScript = document.getElementById('game-schema')
@@ -170,7 +170,7 @@ export default function Game() {
       "@context": "https://schema.org",
       "@type": "Product",
       "name": displayName,
-      "url": `https://deal-scraper.vercel.app/game/${id}`,
+      "url": buildGamePath(id, displayName),
       "offers": storeResults.map(item => ({
         "@type": "Offer",
         "priceCurrency": prices?.currency || "USD",
@@ -202,6 +202,10 @@ export default function Game() {
   }, [prices, id, baseTitle])
 
   useEffect(() => {
+    if (!id) {
+      setPricesLoading(false)
+      return
+    }
     let cancelled = false
     setPricesLoading(true)
     setPricesError(null)
@@ -213,6 +217,10 @@ export default function Game() {
   }, [id])
 
   useEffect(() => {
+    if (!id) {
+      setHistLoading(false)
+      return
+    }
     let cancelled = false
     setHistLoading(true)
     setHistError(null)
@@ -257,6 +265,7 @@ export default function Game() {
   ]
 
   const reloadPrices = async () => {
+    if (!id) return
     setPricesLoading(true)
     setPricesError(null)
     try {
@@ -274,7 +283,7 @@ export default function Game() {
     <div className="min-h-screen max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       {/* Back */}
       <Link
-        to="/"
+        href="/"
         className="inline-flex items-center gap-1.5 text-[#9ca3af] hover:text-white text-sm font-medium transition-colors mb-8 group"
       >
         <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform" />

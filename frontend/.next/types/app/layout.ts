@@ -1,4 +1,4 @@
-// File: C:\Users\subas\OneDrive\Documents\Programming\Deal_Scrapper\frontend\app\layout.jsx
+// File: /home/subash/Documents/GitHub/Deal_Scraper/frontend/app/layout.jsx
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

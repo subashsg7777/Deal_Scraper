@@ -1,9 +1,12 @@
 import Link from 'next/link'
+import { permanentRedirect } from 'next/navigation'
 import { ArrowLeft, TrendingDown, History, ShoppingBag, CalendarDays } from 'lucide-react'
 import StorePriceCard from '../../components/StorePriceCard'
 import PriceChartClient from '../../components/PriceChartClient'
 import AdBanner from '../../components/AdBanner'
 import { getAllGames, getGame, getGameHistory, getGamePrices } from '../../lib/api'
+import { SITE_URL } from '../../lib/site'
+import { buildGamePath, getGameTitle, slugifySegment } from '../../lib/routes'
 import { getGameEditorialCopy } from '../../../src/content/gameEditorialCopy'
 
 export const revalidate = 21600
@@ -29,6 +32,7 @@ function formatCurrency(price, currency = 'INR') {
 
 function formatDateTime(str) {
   if (!str) return 'Unknown'
+
   return new Date(str).toLocaleString('en-IN', {
     day: 'numeric',
     month: 'short',
@@ -117,14 +121,44 @@ function buildHistoryInsights(history) {
   }
 }
 
+export async function generateMetadata({ params }) {
+  const id = params.id
+
+  const [gameInfo, prices] = await Promise.all([
+    getGame(id).catch(() => null),
+    getGamePrices(id).catch(() => null),
+  ])
+
+  const title = getGameTitle(gameInfo) || getGameTitle(prices) || getGameEditorialCopy({ id }).title
+  const description = gameInfo?.description?.trim() || prices?.description?.trim() || getGameEditorialCopy({ id, title }).summary
+
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: `${title} Prices`,
+    description,
+    alternates: {
+      canonical: buildGamePath(id, title),
+    },
+    openGraph: {
+      title: `${title} Prices`,
+      description,
+      url: buildGamePath(id, title),
+      type: 'website',
+    },
+  }
+}
+
 export async function generateStaticParams() {
   try {
     const games = await getAllGames()
     if (!Array.isArray(games)) return []
 
     return games
-      .map((game) => ({ id: String(game.id || game._id || game.gameId || '') }))
-      .filter((item) => item.id)
+      .map((game) => {
+        const id = String(game.id || game._id || game.gameId || '').trim()
+        return id ? { id, slug: slugifySegment(getGameTitle(game)) } : null
+      })
+      .filter(Boolean)
   } catch {
     return []
   }
@@ -148,18 +182,23 @@ export default async function GamePage({ params, searchParams }) {
   const prices = pricesResult.status === 'fulfilled' ? pricesResult.value : null
   const history = historyResult.status === 'fulfilled' ? historyResult.value : null
 
-  const nameFromQuery = typeof searchParams?.name === 'string' ? searchParams.name : null
-  const criticalTitle = gameInfo?.name?.trim() || prices?.gameName?.trim() || nameFromQuery || getGameEditorialCopy({ id }).title
+  const displayName = getGameTitle(gameInfo) || getGameTitle(prices) || getGameEditorialCopy({ id }).title
+  const canonicalPath = buildGamePath(id, displayName)
+  const canonicalSlug = slugifySegment(displayName)
+
+  if (params.slug !== canonicalSlug) {
+    const daysQuery = typeof searchParams?.days === 'string' ? searchParams.days : null
+    permanentRedirect(daysQuery ? `${canonicalPath}?days=${encodeURIComponent(daysQuery)}` : canonicalPath)
+  }
+
   const criticalDescription = gameInfo?.description?.trim() || prices?.description?.trim() || null
   const editorialCopy = getGameEditorialCopy({
     id,
-    title: criticalTitle,
+    title: displayName,
     description: criticalDescription,
   })
-  const displayName = criticalTitle
 
   const renderedDescription = criticalDescription || editorialCopy.summary
-
   const storeResults = Array.isArray(prices?.results) ? prices.results : []
   const availableStoreResults = storeResults.filter((item) => hasValidPrice(item?.price))
 
@@ -170,7 +209,6 @@ export default async function GamePage({ params, searchParams }) {
 
   const cheapestKey = cheapestResult?.store?.toLowerCase()
   const historyInsights = buildHistoryInsights(history)
-
   const currentBestLabel = cheapestResult?.price != null
     ? `${formatCurrency(cheapestResult.price, prices?.currency)} on ${cheapestResult.store}`
     : historyInsights.currentBest
@@ -195,10 +233,7 @@ export default async function GamePage({ params, searchParams }) {
 
   return (
     <div className="min-h-screen max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <Link
-        href="/"
-        className="inline-flex items-center gap-1.5 text-[#9ca3af] hover:text-white text-sm font-medium transition-colors mb-8 group"
-      >
+      <Link href="/" className="inline-flex items-center gap-1.5 text-[#9ca3af] hover:text-white text-sm font-medium transition-colors mb-8 group">
         <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform" />
         Back to Deals
       </Link>
@@ -216,9 +251,7 @@ export default async function GamePage({ params, searchParams }) {
 
         <div className="flex flex-wrap items-start justify-between gap-5">
           <div className="max-w-4xl">
-            <h1 className="text-3xl sm:text-4xl font-black text-[#e5e7eb] leading-tight mb-3 tracking-tight">
-              {displayName}
-            </h1>
+            <h1 className="text-3xl sm:text-4xl font-black text-[#e5e7eb] leading-tight mb-3 tracking-tight">{displayName}</h1>
             <div className="space-y-4 text-[#cbd5e1] text-sm sm:text-[15px] leading-7">
               <p>{renderedDescription}</p>
               <p>{editorialCopy.whyTrack}</p>
@@ -231,9 +264,7 @@ export default async function GamePage({ params, searchParams }) {
               <CalendarDays size={14} className="text-[#6366f1]" />
               <div>
                 <p className="text-[#6b7280] text-[10px] font-semibold uppercase tracking-wider">Last Updated</p>
-                <p className="text-[#e5e7eb] text-xs font-medium mt-0.5">
-                  {formatDateTime(prices.lastUpdatedAt)}
-                </p>
+                <p className="text-[#e5e7eb] text-xs font-medium mt-0.5">{formatDateTime(prices.lastUpdatedAt)}</p>
               </div>
             </div>
           ) : null}
@@ -283,10 +314,10 @@ export default async function GamePage({ params, searchParams }) {
                   currency={prices?.currency}
                 />
               ))
-            : STORES.map((s) => (
+            : STORES.map((store) => (
                 <StorePriceCard
-                  key={s}
-                  store={s}
+                  key={store}
+                  store={store}
                   price={null}
                   isCheapest={false}
                   currency={prices?.currency}
@@ -306,12 +337,8 @@ export default async function GamePage({ params, searchParams }) {
             {DAY_OPTIONS.map((option) => (
               <Link
                 key={option}
-                href={`/game/${id}?days=${option}${nameFromQuery ? `&name=${encodeURIComponent(nameFromQuery)}` : ''}`}
-                className={`px-3.5 py-1.5 rounded-md text-xs font-bold transition-all duration-200 ${
-                  days === option
-                    ? 'bg-[#6366f1] text-white shadow shadow-indigo-500/30'
-                    : 'text-[#9ca3af] hover:text-white'
-                }`}
+                href={`${canonicalPath}?days=${option}`}
+                className={`px-3.5 py-1.5 rounded-md text-xs font-bold transition-all duration-200 ${days === option ? 'bg-[#6366f1] text-white shadow shadow-indigo-500/30' : 'text-[#9ca3af] hover:text-white'}`}
               >
                 {option}d
               </Link>
@@ -331,15 +358,7 @@ export default async function GamePage({ params, searchParams }) {
         )}
       </div>
 
-      <section className="mt-10 bg-[#111827] border border-white/5 rounded-2xl p-6 sm:p-7">
-        <h2 className="text-lg font-bold text-[#e5e7eb] mb-3">About {displayName} Price Tracking</h2>
-        <div className="space-y-4 text-[#cbd5e1] text-sm sm:text-[15px] leading-7">
-          <p>{editorialCopy.bestTime}</p>
-          <p>{editorialCopy.platformInsight}</p>
-        </div>
-      </section>
-
-      <AdBanner className="mt-10" />
+      <AdBanner className="mt-8" />
     </div>
   )
 }

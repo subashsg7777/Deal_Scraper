@@ -158,7 +158,12 @@ public class ScarapperController {
         if(result){
             return ResponseEntity.status(HttpStatus.OK).body("Insert Sucessfull");
         }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error While Inserting from catch block");
+        log.warn(
+                "Rejected price insert for gameId={} store={}",
+                scarapperInsertReqDto.getGameId(),
+                scarapperInsertReqDto.getStore()
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Game not found for supplied gameId");
     }
 
     @GetMapping("latest_price")
