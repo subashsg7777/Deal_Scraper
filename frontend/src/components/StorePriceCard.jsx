@@ -58,17 +58,36 @@ function hasValidPrice(price) {
   return Number.isFinite(parsed) && parsed > 0
 }
 
-function hasValidPrice(price) {
-  const parsed = Number(price)
-  return Number.isFinite(parsed) && parsed > 0
-}
-
 function normalizeUrl(url) {
   if (!url || typeof url !== 'string') return null
   const trimmed = url.trim()
   if (!trimmed) return null
   if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) return trimmed
   return `https://${trimmed}`
+}
+
+function resolveStoreLink(store, storeLinkMap) {
+  if (!storeLinkMap) return null
+  if (typeof storeLinkMap === 'string') return normalizeUrl(storeLinkMap)
+  if (typeof storeLinkMap !== 'object') return null
+
+  const key = (store ?? '').toLowerCase().trim()
+  const candidates = [
+    key,
+    key.replace(/\s+/g, ''),
+    key.replace(/\s+/g, '_'),
+    key.replace(/\s+/g, '-'),
+  ]
+
+  if (key === 'epic games') {
+    candidates.push('epic', 'epicgames', 'epic_games', 'epic-games')
+  }
+
+  const rawLink = candidates
+    .map((candidate) => storeLinkMap[candidate])
+    .find((value) => typeof value === 'string' && value.trim())
+
+  return normalizeUrl(rawLink)
 }
 
 export default function StorePriceCard({ store, price, scrapedAt, isCheapest, currency = 'INR',store_link }) {
@@ -83,6 +102,13 @@ export default function StorePriceCard({ store, price, scrapedAt, isCheapest, cu
     glow: 'shadow-white/5',
   }
   const isAvailable = hasValidPrice(price)
+  const buyLink = resolveStoreLink(store, store_link)
+  const canBuy = isAvailable && Boolean(buyLink)
+
+  const handleBuyClick = () => {
+    if (!buyLink) return
+    window.open(buyLink, '_blank', 'noopener,noreferrer')
+  }
 
   return (
     <div

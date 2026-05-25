@@ -1,4 +1,4 @@
-// File: /home/subash/Documents/GitHub/Deal_Scraper/frontend/app/game/[id]/[slug]/page.jsx
+// File: C:\Users\subas\OneDrive\Documents\Programming\Deal_Scrapper\frontend\app\game\[id]\[slug]\page.jsx
 import * as entry from '../../../../../../app/game/[id]/[slug]/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

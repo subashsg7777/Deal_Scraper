@@ -1,4 +1,18 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/search/route": "app/api/search/route.js",
+  "/robots.txt/route": "app/robots.txt/route.js",
+  "/sitemap.xml/route": "app/sitemap.xml/route.js",
+  "/faq/page": "app/faq/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/blog/page": "app/blog/page.js",
+  "/about/page": "app/about/page.js",
+  "/search/page": "app/search/page.js",
+  "/blog/[slug]/page": "app/blog/[slug]/page.js",
+  "/game/[id]/[slug]/page": "app/game/[id]/[slug]/page.js",
   "/page": "app/page.js",
-  "/game/[id]/[slug]/page": "app/game/[id]/[slug]/page.js"
+  "/blogs/page": "app/blogs/page.js",
+  "/terms-of-service/page": "app/terms-of-service/page.js",
+  "/game/[id]/page": "app/game/[id]/page.js",
+  "/privacy-policy/page": "app/privacy-policy/page.js"
 }
