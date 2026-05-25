@@ -1,16 +1,14 @@
 package com.SG.Deal_Scrapper.Service;
 
 import com.SG.Deal_Scrapper.Models.DealEvent;
+import com.SG.Deal_Scrapper.Models.GameSubscription;
 import com.SG.Deal_Scrapper.Models.Games;
 import com.SG.Deal_Scrapper.Models.Price_history;
 import com.SG.Deal_Scrapper.Repo.DealEventRepository;
 import com.SG.Deal_Scrapper.Repo.GameRepository;
+import com.SG.Deal_Scrapper.Repo.GameSubscriptionRepository;
 import com.SG.Deal_Scrapper.Repo.Price_historyRepository;
-import com.SG.Deal_Scrapper.dto.DealResDto;
-import com.SG.Deal_Scrapper.dto.LatestPrice;
-import com.SG.Deal_Scrapper.dto.LatestPricePerStoreResDto;
-import com.SG.Deal_Scrapper.dto.PricePoint;
-import com.SG.Deal_Scrapper.dto.ScarapperInsertReqDto;
+import com.SG.Deal_Scrapper.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,14 +32,26 @@ public class GameService {
     public final Price_historyRepository priceHistoryRepository;
     private final MongoTemplate mongoTemplate;
     private final DealEventRepository dealEventRepository;
+    public final GameSubscriptionRepository gameSubscriptionRepository;
+    private final EmailQueueService emailQueueService;
 
     public List<Games> getAllGames(){
         return gameRepository.findAll();
     }
 
     public List<DealResDto> getLatestDeals() {
-        return dealEventRepository.findTop50ByOrderByDetectedAtDesc()
-                .stream()
+        List<DealEvent> recentEvents = dealEventRepository.findTop200ByOrderByDetectedAtDesc();
+        Map<String, DealEvent> uniqueDeals = new LinkedHashMap<>();
+
+        for (DealEvent event : recentEvents) {
+            String key = event.getGameId() + "|" + event.getStore();
+            uniqueDeals.putIfAbsent(key, event);
+            if (uniqueDeals.size() >= 50) {
+                break;
+            }
+        }
+
+        return uniqueDeals.values().stream()
                 .map(event -> {
                     DealResDto dto = new DealResDto();
                     dto.setGameId(event.getGameId());
@@ -51,6 +61,7 @@ public class GameService {
                     dto.setNewPrice(event.getNewPrice());
                     dto.setDiscountPercent(event.getDiscountPercent());
                     dto.setDetectedAt(event.getDetectedAt());
+                    dto.setStore_links(event.getStore());
                     return dto;
                 })
                 .toList();
@@ -110,6 +121,22 @@ public class GameService {
                     deal.setName(game_name);
 
                     dealEventRepository.save(deal);
+                }
+
+
+
+                if (discount >= 40){
+                    List<GameSubscription> subscription_data = gameSubscriptionRepository.findByGameId(dto.getGameId());
+                    for(GameSubscription subscription : subscription_data){
+                        EmailServiceDto emailServiceDto = new EmailServiceDto();
+                        emailServiceDto.setEmail(subscription.getEmail());
+                        emailServiceDto.setName(subscription.getGameName());
+                        emailServiceDto.setNewPrice(newPrice);
+                        emailServiceDto.setOldPrice(oldPrice);
+
+                        emailQueueService.addToQueue(emailServiceDto);
+                    }
+
                 }
             }
         }
@@ -202,6 +229,9 @@ public class GameService {
         latestPricePerStoreResDto.setCheapestPrice(lowest);
         latestPricePerStoreResDto.setCurrency("INR");
         latestPricePerStoreResDto.setLastUpdatedAt(latestScrapedAt);
+        latestPricePerStoreResDto.setStoreLinks(storeLinks);
+
+
 
         return latestPricePerStoreResDto;
     }

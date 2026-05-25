@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -43,6 +44,16 @@ public class GlobalExceptionHandler {
         return buildErrorResponse(
                 HttpStatus.SERVICE_UNAVAILABLE,
                 "Database temporarily unavailable. Please try again shortly.",
+                request.getRequestURI()
+        );
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleNotFound(NoResourceFoundException ex, HttpServletRequest request) {
+        log.warn("Route not found on {}", request.getRequestURI());
+        return buildErrorResponse(
+                HttpStatus.NOT_FOUND,
+                "Route not found.",
                 request.getRequestURI()
         );
     }

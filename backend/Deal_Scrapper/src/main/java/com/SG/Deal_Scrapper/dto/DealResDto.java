@@ -12,5 +12,6 @@ public class DealResDto {
     private double oldPrice;
     private double newPrice;
     private double discountPercent;
+    private String store_links;
     private Instant detectedAt;
 }

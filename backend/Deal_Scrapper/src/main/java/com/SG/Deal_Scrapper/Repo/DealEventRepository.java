@@ -8,5 +8,6 @@ import java.util.List;
 public interface DealEventRepository extends MongoRepository<DealEvent, String> {
 
     List<DealEvent> findTop50ByOrderByDetectedAtDesc();
+    List<DealEvent> findTop200ByOrderByDetectedAtDesc();
 
 }

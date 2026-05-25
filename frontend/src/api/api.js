@@ -19,6 +19,21 @@ async function request(path) {
   return res.json();
 }
 
+async function postRequest(path, data) {
+  const res = await fetch(`${BASE_URL}${path}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+  const responseData = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(responseData.error || `Request failed: ${res.status}`);
+  }
+  return responseData;
+}
+
 export function getDeals() {
   return request('/deals');
 }
@@ -31,6 +46,17 @@ export function getGamePrices(gameId) {
   return request(`/games/${gameId}/prices`);
 }
 
+export function getGame(gameId) {
+  return request(`/games/get-game?id=${encodeURIComponent(gameId)}`);
+}
+
 export function getGameHistory(gameId, days = 90) {
   return request(`/games/${gameId}/history?days=${days}`);
+}
+
+export function subscribeEmail(email) {
+  return postRequest('/subscribers', { email });
+}
+export function subscribeToGame(email, gameId, gameName) {
+  return postRequest('/game-subscriptions', { email, gameId, gameName })
 }

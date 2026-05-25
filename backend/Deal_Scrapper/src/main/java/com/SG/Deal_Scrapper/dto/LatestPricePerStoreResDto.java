@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 
 @Data
 public class LatestPricePerStoreResDto {
@@ -15,4 +16,5 @@ public class LatestPricePerStoreResDto {
     private Double cheapestPrice;
     private String currency;
     private Instant lastUpdatedAt;
+    private Map<String, String> storeLinks;
 }

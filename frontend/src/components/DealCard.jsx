@@ -34,6 +34,12 @@ function formatPrice(price) {
   }).format(price)
 }
 
+function formatDiscount(value) {
+  const num = Number(value)
+  if (!Number.isFinite(num)) return '0.00'
+  return num.toFixed(2)
+}
+
 export default function DealCard({ deal }) {
   const { gameId, gameName, store, oldPrice, newPrice, discountPercent } = deal
   const key = store?.toLowerCase()
@@ -62,7 +68,7 @@ export default function DealCard({ deal }) {
         <div className="relative flex items-center justify-between mb-4">
           <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-[#22c55e]/10 text-[#22c55e] border border-[#22c55e]/20">
             <TrendingDown size={11} />
-            -{discountPercent}%
+            -{formatDiscount(discountPercent)}%
           </span>
           <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border ${style.badge}`}>
             <span className={`w-1.5 h-1.5 rounded-full ${style.dot}`} />

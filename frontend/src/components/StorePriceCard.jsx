@@ -10,6 +10,7 @@ const STORE_CONFIG = {
     text: 'text-[#1d9bf0]',
     gradient: 'from-[#1d9bf0]/10',
     glow: 'shadow-[#1d9bf0]/15',
+    button: 'bg-[#1d9bf0] hover:bg-[#0284c7]',
   },
   epic: {
     name: 'Epic Games',
@@ -19,6 +20,7 @@ const STORE_CONFIG = {
     text: 'text-[#a78bfa]',
     gradient: 'from-[#a78bfa]/10',
     glow: 'shadow-[#a78bfa]/15',
+    button: 'bg-[#8b5cf6] hover:bg-[#7c3aed]',
   },
   xbox: {
     name: 'Xbox',
@@ -28,6 +30,7 @@ const STORE_CONFIG = {
     text: 'text-[#22c55e]',
     gradient: 'from-[#22c55e]/10',
     glow: 'shadow-[#22c55e]/15',
+    button: 'bg-[#22c55e] hover:bg-[#16a34a]',
   },
 }
 
@@ -55,7 +58,20 @@ function hasValidPrice(price) {
   return Number.isFinite(parsed) && parsed > 0
 }
 
-export default function StorePriceCard({ store, price, scrapedAt, isCheapest, currency = 'INR' }) {
+function hasValidPrice(price) {
+  const parsed = Number(price)
+  return Number.isFinite(parsed) && parsed > 0
+}
+
+function normalizeUrl(url) {
+  if (!url || typeof url !== 'string') return null
+  const trimmed = url.trim()
+  if (!trimmed) return null
+  if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) return trimmed
+  return `https://${trimmed}`
+}
+
+export default function StorePriceCard({ store, price, scrapedAt, isCheapest, currency = 'INR',store_link }) {
   const key = store?.toLowerCase()
   const cfg = STORE_CONFIG[key] ?? {
     name: store ?? 'Store',
@@ -70,7 +86,7 @@ export default function StorePriceCard({ store, price, scrapedAt, isCheapest, cu
 
   return (
     <div
-      className={`relative bg-[#111827] border rounded-2xl p-5 overflow-hidden transition-all duration-300
+      className={`relative h-full bg-[#111827] border rounded-2xl p-5 overflow-hidden transition-all duration-300 flex flex-col
         ${isCheapest
           ? `border-[#22c55e]/30 shadow-xl ${cfg.glow}`
           : `${cfg.border} hover:border-white/15 hover:shadow-lg hover:shadow-black/30`
@@ -78,12 +94,12 @@ export default function StorePriceCard({ store, price, scrapedAt, isCheapest, cu
     >
       {/* Background gradient */}
       <div
-        className={`absolute inset-0 bg-gradient-to-br ${cfg.gradient} to-transparent ${
+        className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${cfg.gradient} to-transparent ${
           isCheapest ? 'opacity-100' : 'opacity-0 hover:opacity-100'
         } transition-opacity duration-300`}
       />
 
-      <div className="relative">
+      <div className="relative z-10 flex-1">
         {/* Header */}
         <div className="flex items-center justify-between mb-5">
           <div className="flex items-center gap-2">
@@ -124,6 +140,15 @@ export default function StorePriceCard({ store, price, scrapedAt, isCheapest, cu
           </div>
         )}
       </div>
+
+      <button 
+        type="button"
+        className={`relative z-10 mt-5 w-full ${cfg.button} disabled:bg-[#4b5563] disabled:cursor-not-allowed text-white font-semibold py-2.5 px-4 rounded-xl transition-colors duration-300`}
+        onClick={handleBuyClick}
+        disabled={!canBuy}
+      >
+        {canBuy ? `Buy from ${cfg.name}` : `Link unavailable for ${cfg.name}`}
+      </button>
     </div>
   )
 }
