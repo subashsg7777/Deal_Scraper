@@ -1,0 +1,35 @@
+name: frontend_ci
+
+on:
+
+    pull_request:
+        branches: [ pipeline_workflow ]
+        paths :
+        - 'frontend/**'
+        
+    push: 
+        branches: [ pipeline_workflow ]
+        paths:
+        - 'frontend/**'
+        
+        
+steps:
+    build-and-test:
+        runs-on: ubuntu-latest
+        
+        steps:
+           - name : Checkout Repo
+             uses: actions/checkout@v4
+             
+          - name: Setup nodejs
+            uses: actions/setup-nodejs@v4
+            with: 
+                nodejs-version: '24.15.0'
+                cache: 'npm'
+                
+           - name: Run Frontend Unit Tests
+             run: | 
+                cd frontend/
+                npm ci 
+                npm run build
+                
