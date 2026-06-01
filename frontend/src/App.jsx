@@ -12,7 +12,7 @@ import NotFound from './legacy-pages/NotFound'
 import About from './legacy-pages/About'
 import FAQ from './legacy-pages/FAQ'
 
-// example comment 
+// example comment to check frontend CI/CD pipeline
 
 export default function App() {
   return (
