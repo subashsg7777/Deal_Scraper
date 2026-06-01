@@ -12,6 +12,8 @@ import NotFound from './legacy-pages/NotFound'
 import About from './legacy-pages/About'
 import FAQ from './legacy-pages/FAQ'
 
+// Checking if branch restriction triggers in github 
+
 // example comment to check frontend CI/CD pipeline
 
 export default function App() {
