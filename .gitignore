@@ -13,3 +13,4 @@ backend/Deal_Scrapper/target/
 .DS_Store
 Thumbs.db
 .vscode/
+backend/Deal_Scrapper/src/main/resources/application-local.properties

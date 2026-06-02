@@ -1,0 +1,2 @@
+org.springframework.boot.EnvironmentPostProcessor=\
+com.SG.Deal_Scrapper.Config.ActiveProfileSanitizingEnvironmentPostProcessor
