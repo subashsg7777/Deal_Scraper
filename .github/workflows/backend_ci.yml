@@ -26,6 +26,8 @@ jobs:
           cache: 'maven'
 
       - name: Run Backend Unit Tests
+        env:
+          DB_MONGO_DB_URI: ${{ secrets.DB_MONGO_DB_URI }}
         run: |
           cd backend/Deal_Scrapper
           chmod +x mvnw
