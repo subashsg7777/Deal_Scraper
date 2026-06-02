@@ -48,6 +48,7 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+<!--		Added Spring starter test dependency for CI CD tutorial-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mongodb-test</artifactId>
