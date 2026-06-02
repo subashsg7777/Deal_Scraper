@@ -32,19 +32,4 @@ jobs:
         run: |
           cd backend/Deal_Scrapper
           chmod +x mvnw
-
-          # Normalize secret formats like "KEY=mongodb+srv://..." and guarantee a valid URI in CI.
-          RAW_URI="${SPRING_DATA_MONGODB_URI:-${DB_MONGO_DB_URI:-}}"
-          if [[ "$RAW_URI" == *=* ]]; then
-            RAW_URI="${RAW_URI#*=}"
-          fi
-          RAW_URI="$(echo "$RAW_URI" | tr -d '\r' | xargs)"
-
-          if [[ ! "$RAW_URI" =~ ^mongodb(\+srv)?:\/\/ ]]; then
-            RAW_URI="mongodb://localhost:27017/deal_scrapper"
-          fi
-
-          export SPRING_DATA_MONGODB_URI="$RAW_URI"
-          echo "Using sanitized Mongo URI for tests"
-
           ./mvnw clean test
