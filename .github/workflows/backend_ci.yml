@@ -27,6 +27,7 @@ jobs:
 
       - name: Run Backend Unit Tests
         env:
+          SPRING_DATA_MONGODB_URI: ${{ secrets.SPRING_DATA_MONGODB_URI }}
           DB_MONGO_DB_URI: ${{ secrets.DB_MONGO_DB_URI }}
         run: |
           cd backend/Deal_Scrapper
