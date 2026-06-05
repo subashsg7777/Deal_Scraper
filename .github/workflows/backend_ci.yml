@@ -77,3 +77,8 @@ jobs:
           file: ./backend/Deal_Scrapper/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/deal-scrapper-backend:latest
+
+      - name: Using Automated Deployment From Docker Image
+        run: |
+          echo "Calling Out Render Deploy Hook"
+          curl -x POST "${{secrets.RENDER_DEPLOY_HOOK}}"
