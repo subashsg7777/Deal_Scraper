@@ -81,4 +81,4 @@ jobs:
       - name: Using Automated Deployment From Docker Image
         run: |
           echo "Calling Out Render Deploy Hook"
-          curl -x POST "${{secrets.RENDER_DEPLOY_HOOK}}"
+          curl -X POST "${{secrets.RENDER_DEPLOY_HOOK}}"
