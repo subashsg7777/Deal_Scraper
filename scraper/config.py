@@ -1,6 +1,7 @@
 import os
 
 BASE_URL = os.getenv("API_BASE_URL")
+MONGO_URI = os.environ.get("SPRING_MONGODB_URI")
 
 
 def build_api_url(path: str) -> str:

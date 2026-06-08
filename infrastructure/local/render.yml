@@ -1,0 +1,41 @@
+services: 
+  - type: static
+    name: Frontend
+    env: static
+    buildCommand: cd frontend && npm install && npm run build 
+    staticPublishPath: ./frontend/dist
+    autoDeployTrigger: commit
+
+  - type: web
+    name: Backend 
+    env: docker
+    plan: starter
+    region: oregon
+    autoDeployTrigger: commit
+    envVars: 
+      - key: SPRING_MONGODB_URI
+        fromService:
+          type: pserv
+          name: deal-scraper-mongodb
+          property: connectionString
+
+  - type: worker
+    name: python scraper
+    env: python 
+    buildCommand: cd scraper && pip install -r requirement.txt
+    startCommand: cd scraper && python3 main.py
+    plan: starter
+    autoDeployTrigger: off 
+    envVars: 
+      - key: SPRING_MONGODB_URI
+        fromService: 
+          type: pserv
+          name: scrapper-mongodb
+          property: connectionString
+
+  - type: pserv
+    name: monngoDb  
+    env: docker
+    repo: https://github.com/kreuzwerker/terraform-provider-docker
+    plan:  starter
+    region: oregon
