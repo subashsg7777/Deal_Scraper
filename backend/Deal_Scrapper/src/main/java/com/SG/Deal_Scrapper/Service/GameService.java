@@ -229,7 +229,6 @@ public class GameService {
         latestPricePerStoreResDto.setCheapestPrice(lowest);
         latestPricePerStoreResDto.setCurrency("INR");
         latestPricePerStoreResDto.setLastUpdatedAt(latestScrapedAt);
-        latestPricePerStoreResDto.setStoreLinks(storeLinks);
 
 
 
